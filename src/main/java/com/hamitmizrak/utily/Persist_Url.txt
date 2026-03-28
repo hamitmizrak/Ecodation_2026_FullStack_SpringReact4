@@ -1,0 +1,21 @@
+Daimi URL
+http://localhost:9999
+http://localhost:9999/h2-console
+http://localhost:9999/swagger-ui/index.html
+http://localhost:9999/actuator
+http://localhost:9999/actuator/health
+
+######################################################
+Banner Ascii
+https://manytools.org/hacker-tools/ascii-banner/
+
+######################################################
+jUniConv Unicode Characters to Java Entities Converter
+# Site unicode character:
+https://itpro.cz/juniconv/
+
+######################################################
+Spring
+https://spring.io/projects/spring-boot
+https://start.spring.io/
+https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/overview.html
