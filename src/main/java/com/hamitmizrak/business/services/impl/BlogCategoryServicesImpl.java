@@ -60,7 +60,7 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     // ###############################################################
     // SPEED DATA
     @Override
-    public String categorySpeedData(Integer data) {
+    public String blogCategorySpeedData(Integer data) {
         return "";
     }
 

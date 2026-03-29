@@ -8,5 +8,5 @@ import com.hamitmizrak.business.services.IModelMapperService;
 public interface IBlogServices<D,E> extends IModelMapperService<D,E>, ICrudService<D,E> {
 
   // SPEED DATA Category
-    public String categorySpeedData(Integer data);
+    public String blogSpeedData(Integer data);
 }
