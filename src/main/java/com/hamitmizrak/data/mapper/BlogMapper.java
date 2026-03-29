@@ -25,7 +25,6 @@ public class BlogMapper {
                 .build();
     }
 
-
     // Entity ==> Dto
     public BlogEntity toEntity(BlogDto dto){
         if(dto == null) return null;
@@ -40,4 +39,4 @@ public class BlogMapper {
                 .build();
     }
 
-}
+} // end BlogMapper
