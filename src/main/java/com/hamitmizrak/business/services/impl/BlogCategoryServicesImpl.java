@@ -10,7 +10,6 @@ import com.hamitmizrak.exception.HamitMizrakException;
 import com.hamitmizrak.exception._404_NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -104,14 +103,29 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     // UPDATE (BLOG CATEGORY)
     @Override
     public BlogCategoryDto objectServiceUpdate(Long id, BlogCategoryDto dto) {
-        return null;
+        // Bulamadı
+        BlogCategoryEntity blogCategoryEntity = iBlogCategoryRepository
+                .findById(id)
+                .orElseThrow(()-> new _404_NotFoundException(id+" nolu id bulunamadı"));
+
+        // Kategori zaten varsa
+        if(dto.getCategoryName()!=null && !dto.getCategoryName().isBlank()) {
+            if(iBlogCategoryRepository.existsByCategoryNameIgnoreCase(dto.getCategoryName())) {
+                throw  new HamitMizrakException("Kategori zaten var: "+dto.getCategoryName());
+            }
+
+            blogCategoryEntity.setCategoryName(dto.getCategoryName());
+        }
+
+        return entityToDto(iBlogCategoryRepository.save(blogCategoryEntity));
     }
 
     // DELETE (BLOG CATEGORY)
     @Override
     public BlogCategoryDto objectServiceDelete(Long id) {
-        return null;
+        BlogCategoryDto found = objectServiceFindById(id);
+        iBlogCategoryRepository.deleteById(id);
+        return found;
     }
 
-
-}
+} // end BlogCategoryServicesImpl
