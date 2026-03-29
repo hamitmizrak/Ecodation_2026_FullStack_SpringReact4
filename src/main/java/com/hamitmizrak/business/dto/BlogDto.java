@@ -54,6 +54,6 @@ public class BlogDto extends AuditingAwareBaseDto implements Serializable {
     private Date systemCreatedDate;
 
     // Blog(N) - BlogCategory(1)
-    private BlogCategoryDto blogCategory;
+    private BlogCategoryDto blogCategoryDto;
 
 }
