@@ -1,15 +1,19 @@
 package com.hamitmizrak.controller.api.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.business.services.interfaces.IBlogServices;
 import com.hamitmizrak.controller.api.interfaces.IBlogApi;
 import com.hamitmizrak.error.ApiResult;
+import com.hamitmizrak.file_upload.ImageService;
 import com.hamitmizrak.utily.FrontEnd;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +30,9 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     // Field
     private final IBlogServices<BlogDto, ?> iBlogServices;
 
+    // Resim Ekleme (Api)
+    private final ImageService imageService;
+    private final ObjectMapper objectMapper;
 
 
     // #######################################################################
@@ -47,10 +54,10 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     }
 
     // #######################################################################
-    // CREATE
+    // CREATE (JSON Resimsiz)
     // http://localhost:9999/blog/api/v1.0.0/create
     @Override
-    @PostMapping("/create")
+    @PostMapping(value = "/create",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResult<?>> objectApiCreate(@Valid @RequestBody BlogDto dto) {
         try {
             return ResponseEntity.ok(ApiResult.success(iBlogServices.objectServiceCreate(dto)));
@@ -59,6 +66,24 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
         }
     }
 
+    // CREATE (JSON Resimli: Multipart)
+    // http://localhost:9999/blog/api/v1.0.0/create
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Override
+    public ResponseEntity<ApiResult<?>> objectApiCreate(
+            @RequestPart("blog") String json,
+            @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
+        try {
+            BlogDto blogDto = objectMapper.readValue(json,BlogDto.class);
+            String relative = imageService.saveBlogImage(multipartFile); //upload/blog/...
+            blogDto.setImage(relative);
+            return ResponseEntity.ok(ApiResult.success(iBlogServices.objectServiceCreate(blogDto)));
+        }catch (Exception e){
+            return ResponseEntity.ok(ApiResult.error("blogError", e.getMessage(),"/blog/api/v1.0.0/create[multipart/form-data]"));
+        }
+    }
+
+    // #######################################################################
     // LIST (BLOG )
     // http://localhost:9999/blog/api/v1.0.0/list
     @Override
@@ -71,6 +96,8 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
         }
     }
 
+
+    // #######################################################################
     // FIND (BLOG )
     // http://localhost:9999/blog/api/v1.0.0/find/1
     @Override
@@ -83,6 +110,8 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
         }
     }
 
+
+    // #######################################################################
     // UPDATE (BLOG )
     // http://localhost:9999/blog/api/v1.0.0/update/1
     @Override
@@ -95,6 +124,13 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
         }
     }
 
+    @Override
+    public ResponseEntity<ApiResult<?>> objectApiUpdate(String json, MultipartFile multipartFile) {
+        return null;
+    }
+
+
+    // #######################################################################
     // DELETE (BLOG )
     // http://localhost:9999/blog/api/v1.0.0/delete/1
     @Override
