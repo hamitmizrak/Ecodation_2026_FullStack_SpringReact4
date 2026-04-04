@@ -46,7 +46,6 @@ public class _1_Blog_BlogCategorySeek {
             blogEntity1.setBlogCategoryToBlogEntity(bilgisayarCategor);
             iBlogRepository.save(blogEntity1);
 
-
             BlogEntity blogEntity2 = new BlogEntity();
             blogEntity2.setHeader("Header-2");
             blogEntity2.setTitle("Title-2");
