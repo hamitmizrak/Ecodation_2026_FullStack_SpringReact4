@@ -76,7 +76,8 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     // DELETE ALL
     @Override
     public String blogCategoryDeleteAll() {
-        return "";
+        iBlogCategoryRepository.deleteAll();
+        return objectServiceList().toString()+" tane veri silindi";
     }
 
 
