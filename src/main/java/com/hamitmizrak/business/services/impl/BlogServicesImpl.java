@@ -176,8 +176,26 @@ public class BlogServicesImpl implements IBlogServices<BlogDto, BlogEntity> {
     @Override
     public BlogDto objectServiceDelete(Long id) {
 
+        // Blog Bul
+        BlogEntity blogEntity = iBlogRepository.findById(id)
+                .orElseThrow(()-> new _404_NotFoundException(id+" id'li blog bulunamadı"));
+
+        // Kayıtta ilişkili dosya varsa sil
+        String img= blogEntity.getImage();
+       if(img!=null && img.startsWith("/upload")){
+           try {
+               imageService.deleteByUrl(img);
+           }catch (Exception e){
+               e.printStackTrace();
+           }
+       }
+
         // blogcategory id yoksa blog silinsin ama kayıtlı ve ilişkili veri varsa bunun doğrulanmasını sağlamak
-        BlogDto found = objectServiceFindById(id);
+        //1.YOL
+        //BlogDto found = objectServiceFindById(id);
+
+       // 2.YOL
+        BlogDto found = entityToDto(blogEntity);
         iBlogRepository.deleteById(id);
         return found;
     }
