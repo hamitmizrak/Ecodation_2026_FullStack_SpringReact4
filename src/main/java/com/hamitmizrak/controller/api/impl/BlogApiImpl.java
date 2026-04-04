@@ -31,15 +31,19 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     // #######################################################################
     // SPEED & DELETE_ALL
     // SPEED DATA
+    // http://localhost:9999/blog/category/api/v1.0.0/speed-data/4
     @Override
-    public ResponseEntity<String> blogSpeedData(Integer data) {
-        return null;
+    @PostMapping("/speed-data/{count}")
+    public ResponseEntity<String> blogSpeedData(@PathVariable(name="count")  Integer data) {
+        return ResponseEntity.ok(iBlogServices.blogSpeedData(data==null ? 0 : data));
     }
 
     // DELETE ALL
+    // http://localhost:9999/blog/api/v1.0.0/all-delete
     @Override
+    @DeleteMapping("/all-delete")
     public ResponseEntity<String> blogDeleteAll() {
-        return null;
+        return ResponseEntity.ok(iBlogServices.blogDeleteAll());
     }
 
     // #######################################################################

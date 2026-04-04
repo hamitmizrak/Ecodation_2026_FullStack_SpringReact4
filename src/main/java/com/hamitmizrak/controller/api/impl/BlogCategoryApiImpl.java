@@ -27,19 +27,22 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
     private final IBlogCategoryServices<BlogCategoryDto, ?> iBlogCategoryServices;
 
 
-
     // #######################################################################
     // SPEED & DELETE_ALL
     // SPEED DATA
+    // http://localhost:9999/blog/category/api/v1.0.0/speed-data/4
     @Override
-    public ResponseEntity<String> blogCategorySpeedData(Integer data) {
-        return null;
+    @PostMapping("/speed-data/{count}")
+    public ResponseEntity<String> blogCategorySpeedData(@PathVariable(name="count")  Integer data) {
+        return ResponseEntity.ok(iBlogCategoryServices.blogCategorySpeedData(data==null ? 0 : data));
     }
 
     // DELETE ALL
+    // http://localhost:9999/blog/category/api/v1.0.0/all-delete
     @Override
+    @DeleteMapping("/all-delete")
     public ResponseEntity<String> blogCategoryDeleteAll() {
-        return null;
+        return ResponseEntity.ok(iBlogCategoryServices.blogCategoryDeleteAll());
     }
 
     // #######################################################################
