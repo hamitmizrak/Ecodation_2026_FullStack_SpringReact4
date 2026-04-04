@@ -30,7 +30,7 @@ public interface ICrudImageApi<D> {
 
     // UPDATE (JSON Resimli: Multipart)
     // http://localhost:9999/blog/api/v1.0.0/create
-    public ResponseEntity<ApiResult<?>> objectApiUpdate( String json,MultipartFile multipartFile);
+    public ResponseEntity<ApiResult<?>> objectApiUpdate(Long id, D dto,MultipartFile multipartFile);
 
     // DELETE
     public ResponseEntity<ApiResult<?>> objectApiDelete(Long id);

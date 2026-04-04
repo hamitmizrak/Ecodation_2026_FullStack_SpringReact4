@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 // LOMBOK
@@ -54,7 +55,7 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     }
 
     // #######################################################################
-    // CREATE (JSON Resimsiz)
+    // CREATE (BLOG (JSON Resimsiz)
     // http://localhost:9999/blog/api/v1.0.0/create
     @Override
     @PostMapping(value = "/create",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -112,11 +113,14 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
 
 
     // #######################################################################
-    // UPDATE (BLOG )
+    // UPDATE (BLOG (JSON Resimsiz) )
     // http://localhost:9999/blog/api/v1.0.0/update/1
     @Override
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ApiResult<?>> objectApiUpdate(@PathVariable(name = "id") Long id, @Valid @RequestBody BlogDto dto) {
+    @PutMapping(value="/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResult<?>> objectApiUpdate(
+            @PathVariable(name = "id") Long id,
+            @Valid @RequestBody BlogDto dto )
+    {
         try {
             return ResponseEntity.ok(ApiResult.success(iBlogServices.objectServiceUpdate(id,dto)));
         }catch (Exception e){
@@ -124,11 +128,48 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
         }
     }
 
+    // UPDATE (BLOG (JSON Resimli) )
+    // http://localhost:9999/blog/api/v1.0.0/update/1
     @Override
-    public ResponseEntity<ApiResult<?>> objectApiUpdate(String json, MultipartFile multipartFile) {
-        return null;
-    }
+    @PutMapping(value="/update/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResult<?>> objectApiUpdate(
+            @PathVariable(name = "id") Long id,
+            @RequestPart("blog") BlogDto dto,
+            @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
+        try {
 
+            // Mevcut kaydı çek (eski image'i öğrenmek için)
+            BlogDto current = iBlogServices.objectServiceFindById(id);
+            String oldUrl= current!=null ? current.getUrl():null;
+
+            if(multipartFile!=null && !multipartFile.isEmpty()){
+                String relative= imageService.saveBlogImage(multipartFile);
+                dto.setImage(relative);
+
+            }
+
+            BlogDto updated= iBlogServices.objectServiceUpdate(id,dto);
+
+            // Eğer yeni resim yüklendiyse ve eski /upload/.. ise farklı olan reismi sil
+            if(multipartFile!=null &&
+                    !multipartFile.isEmpty()  &&
+                    oldUrl!=null &&
+                    oldUrl.startsWith("/upload")&&
+                    !oldUrl.equals(updated.getImage())
+
+            ){
+                try {
+                    imageService.deleteByUrl(oldUrl);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            return ResponseEntity.ok(ApiResult.success(updated));
+        }catch (Exception e){
+            return ResponseEntity.ok(ApiResult.error("blogError", e.getMessage(),"/blog/api/v1.0.0/update[multipart]/"+id));
+        }
+    }
 
     // #######################################################################
     // DELETE (BLOG )
