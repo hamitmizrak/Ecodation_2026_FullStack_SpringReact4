@@ -41,7 +41,7 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     private final IBlogCategoryRepository iBlogCategoryRepository;
     private final ModelMapperBean modelMapperBean;
 
-    // MODEL MAPPER SERVICE
+    // ------------- MODEL MAPPER SERVICE -------------
     @Override
     public BlogCategoryDto entityToDto(BlogCategoryEntity entity) {
         //1.YOL
@@ -61,6 +61,21 @@ public class BlogCategoryServicesImpl implements IBlogCategoryServices<BlogCateg
     // SPEED DATA
     @Override
     public String blogCategorySpeedData(Integer data) {
+        if(data!=null){
+            for (int i = 1; i <=data ; i++) {
+                BlogCategoryEntity blogCategoryEntity= new BlogCategoryEntity();
+                blogCategoryEntity.setCategoryName("category"+i);
+                iBlogCategoryRepository.save(blogCategoryEntity);
+            }
+        }else{
+            throw new NullPointerException("Integer have not be null");
+        }
+        return data+" tane veri yüklendi";
+    }
+
+    // DELETE ALL
+    @Override
+    public String blogCategoryDeleteAll() {
         return "";
     }
 

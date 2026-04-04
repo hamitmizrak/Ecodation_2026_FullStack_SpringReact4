@@ -8,4 +8,7 @@ public interface IBlogCategoryApi <D> extends ICrudApi<D> {
 
     // SPEED DATA Category
     public ResponseEntity<String>  blogCategorySpeedData(Integer data);
+
+    // DELETE ALL
+    public ResponseEntity<String> blogCategoryDeleteAll();
 }

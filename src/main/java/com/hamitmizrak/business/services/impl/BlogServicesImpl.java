@@ -40,6 +40,7 @@ public class BlogServicesImpl implements IBlogServices<BlogDto, BlogEntity> {
     private final IBlogRepository iBlogRepository;
     private final ModelMapperBean modelMapperBean;
 
+    // ###############################################################
     // MODEL MAPPER SERVICE
     @Override
     public BlogDto entityToDto(BlogEntity entity) {
@@ -60,6 +61,12 @@ public class BlogServicesImpl implements IBlogServices<BlogDto, BlogEntity> {
     // SPEED DATA
     @Override
     public String blogSpeedData(Integer data) {
+        return "";
+    }
+
+    // DELETE ALL
+    @Override
+    public String blogDeleteAll() {
         return "";
     }
 

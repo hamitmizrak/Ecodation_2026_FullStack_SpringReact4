@@ -28,9 +28,17 @@ public class BlogCategoryApiImpl implements IBlogCategoryApi<BlogCategoryDto> {
 
 
 
+    // #######################################################################
+    // SPEED & DELETE_ALL
     // SPEED DATA
     @Override
     public ResponseEntity<String> blogCategorySpeedData(Integer data) {
+        return null;
+    }
+
+    // DELETE ALL
+    @Override
+    public ResponseEntity<String> blogCategoryDeleteAll() {
         return null;
     }
 

@@ -28,9 +28,17 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
 
 
 
+    // #######################################################################
+    // SPEED & DELETE_ALL
     // SPEED DATA
     @Override
     public ResponseEntity<String> blogSpeedData(Integer data) {
+        return null;
+    }
+
+    // DELETE ALL
+    @Override
+    public ResponseEntity<String> blogDeleteAll() {
         return null;
     }
 
