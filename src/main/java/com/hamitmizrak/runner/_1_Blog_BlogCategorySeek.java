@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
+import java.util.UUID;
+
 // LOMBOK
 @RequiredArgsConstructor
 @Log4j2
@@ -30,12 +32,12 @@ public class _1_Blog_BlogCategorySeek {
 
             // Tekil ile başla (Category(1))
             BlogCategoryEntity bilgisayarCategor = new BlogCategoryEntity();
-            bilgisayarCategor.setCategoryName("Bilgisayar");
+            bilgisayarCategor.setCategoryName("Bilgisayar"+ UUID.randomUUID().toString());
             iBlogCategoryRepository.save(bilgisayarCategor);
 
 
             BlogCategoryEntity tabletCategor = new BlogCategoryEntity();
-            tabletCategor.setCategoryName("Tablet");
+            tabletCategor.setCategoryName("Tablet"+ UUID.randomUUID().toString());
             iBlogCategoryRepository.save(tabletCategor);
 
             // Çoğul  (Blog(N))
