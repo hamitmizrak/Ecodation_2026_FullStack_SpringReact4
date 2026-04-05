@@ -1,62 +1,47 @@
 package com.hamitmizrak.data.entity;
 
-import com.hamitmizrak.audit.AuditingAwareBaseDto;
-import com.hamitmizrak.business.dto.BlogCategoryDto;
+import com.hamitmizrak.audit.AuditingAwareBaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.annotations.CreationTimestamp;
 
-
 import java.util.Date;
 
-// LOMBOK
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder
 @Log4j2
-
-// ENTITY
-// BlogEntity(N) - BlogCategory(1)
 @Entity
-@Table(name="blogs")
-public class BlogEntity extends AuditingAwareBaseDto {
+@Table(name = "blogs")
+public class BlogEntity extends AuditingAwareBaseEntity {
 
-    // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long blogId;
 
-    // BLOG HEADER
-    @Column(nullable = false, length = 450)
+    @Column(nullable = false, length = 150)
     private String header;
 
-    // BLOG TITLE
+    @Column(nullable = false, length = 200)
     private String title;
 
-    // BLOG CONTENT
     @Lob
+    @Column(nullable = false)
     private String content;
 
-    // BLOG URL
     private String url;
 
-    // BLOG PICTURE
-    @Column(length = 350)
+    /** About ile paralel tutmak için isim 'image' (imageUrl değil). Relative URL: /upload/blog/... */
+    @Column(nullable = true, length = 300)
     private String image;
 
-    // DATE
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date systemCreatedDate;
 
-    // Blog(N) - BlogCategory(1)
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name="blogCategoryId",nullable = false)
-    private BlogCategoryEntity blogCategoryToBlogEntity;
-
+    // Blog(N)  - BlogCategory(1)
+    // Projendeki isimlendirme ile uyumlu alan adı:
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private BlogCategoryEntity blogCategoryBlogEntity;
 }

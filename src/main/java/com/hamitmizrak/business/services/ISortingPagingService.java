@@ -4,8 +4,6 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-// D:Dto
-// E:Entity
 // D: Dto
 // E: Entity
 public interface ISortingPagingService<D,E> {

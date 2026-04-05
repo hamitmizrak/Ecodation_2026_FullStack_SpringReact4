@@ -3,13 +3,15 @@ package com.hamitmizrak.business.services.interfaces;
 import com.hamitmizrak.business.services.ICrudService;
 import com.hamitmizrak.business.services.IModelMapperService;
 
-// D:Dto
-// E:Entity
-public interface IBlogServices<D, E> extends IModelMapperService<D, E>, ICrudService<D, E> {
+// D: Dto
+// E: Entity
+public interface IBlogServices<D, E>  extends IModelMapperService<D,E>,ICrudService<D,E>{
 
-    // SPEED DATA Category
-    public String blogSpeedData(Integer data);
 
-    // DELETE ALL
-    public String blogDeleteAll();
+    // Relation
+    // SPEED DATA
+    public String blogSpeedData(Long data);
+
+    // ALL DELETE
+    public String blogAllDelete();
 }

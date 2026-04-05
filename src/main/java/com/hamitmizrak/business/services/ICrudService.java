@@ -2,9 +2,9 @@ package com.hamitmizrak.business.services;
 
 import java.util.List;
 
-// D:Dto
-// E:Entity
-public interface ICrudService<D,E> {
+// D: Dto
+// E: Entity
+public interface ICrudService<D, E> {
 
     // CREATE
     public D objectServiceCreate(D d);
@@ -21,4 +21,4 @@ public interface ICrudService<D,E> {
     // DELETE
     public D objectServiceDelete(Long id);
 
-} //end ICrudService
+} // end ICrudService

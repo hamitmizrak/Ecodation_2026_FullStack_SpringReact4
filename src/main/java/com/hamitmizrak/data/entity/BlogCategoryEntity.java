@@ -1,48 +1,35 @@
 package com.hamitmizrak.data.entity;
 
-import com.hamitmizrak.audit.AuditingAwareBaseDto;
+import com.hamitmizrak.audit.AuditingAwareBaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-// LOMBOK
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder
 @Log4j2
-
-// ENTITY
-// BlogCategory(1)- BlogEntity(N)
 @Entity
-@Table(name="blog_categories")
-public class BlogCategoryEntity extends AuditingAwareBaseDto {
+@Table(name = "blog_categories")
+public class BlogCategoryEntity extends AuditingAwareBaseEntity {
 
-
-    // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long blogCategoryId;
+    private Long categoryId;
 
-    // CATEGORY NAME
-    @Column(nullable = false, unique = true,length = 255)
+    @Column(nullable = false, unique = true, length = 150)
     private String categoryName;
 
-    // DATE
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date systemCreatedDate;
 
-    // BlogCategory(1)- Blog(N)
-    @OneToMany(mappedBy = "blogCategoryToBlogEntity", fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = false)
-    private List<BlogEntity> blogCategoryToBlogEntityList;
-
+    // BlogCategory(1) - Blog(N)
+    // BlogEntity içindeki alan adı "blogCategoryBlogEntity" olduğu için mappedBy aynı tutuldu
+    @OneToMany(mappedBy = "blogCategoryBlogEntity", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<BlogEntity> blogCategoryBlogEntityList;
 }

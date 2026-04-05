@@ -1,23 +1,22 @@
 package com.hamitmizrak.controller.api.interfaces;
 
+import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.controller.api.ICrudApi;
-import com.hamitmizrak.controller.api.ICrudImageApi;
 import com.hamitmizrak.error.ApiResult;
-import org.springframework.http.MediaType;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-// D: Dto
-public interface IBlogApi<D> extends ICrudImageApi<D> {
+import java.util.List;
+
+public interface IBlogApi<D> extends ICrudApi<D> {
+
+    // ALL DELETE
+    public ResponseEntity<String> blogApiAllDelete();
 
     // SPEED DATA
-    public ResponseEntity<String>  blogSpeedData(Integer data);
-
-
-    // DELETE ALL
-    public ResponseEntity<String> blogDeleteAll();
-
-
+    public ResponseEntity<String> blogApiSpeedData(Long key);
 }

@@ -7,25 +7,20 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class BlogCategoryMapper {
 
-    // Entity ==> Dto
-    public BlogCategoryDto toDto(BlogCategoryEntity entity){
-        if(entity == null) return null;
+    public BlogCategoryDto toDto(BlogCategoryEntity e) {
+        if (e == null) return null;
         return BlogCategoryDto.builder()
-                .blogCategoryId(entity.getBlogCategoryId())
-                .categoryName(entity.getCategoryName())
-                .systemCreatedDate(entity.getSystemCreatedDate())
+                .categoryId(e.getCategoryId())
+                .categoryName(e.getCategoryName())
+                .systemCreatedDate(e.getSystemCreatedDate())
                 .build();
     }
 
-
-    // Entity ==> Dto
-    public BlogCategoryEntity toEntity(BlogCategoryDto dto){
-        if(dto == null) return null;
+    public BlogCategoryEntity toEntity(BlogCategoryDto d) {
+        if (d == null) return null;
         return BlogCategoryEntity.builder()
-                .blogCategoryId(dto.getBlogCategoryId())
-                .categoryName(dto.getCategoryName())
-                .systemCreatedDate(dto.getSystemCreatedDate())
+                .categoryId(d.getCategoryId())
+                .categoryName(d.getCategoryName())
                 .build();
     }
-
 }

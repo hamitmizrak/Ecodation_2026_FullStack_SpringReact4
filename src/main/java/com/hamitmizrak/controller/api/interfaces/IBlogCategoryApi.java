@@ -1,14 +1,15 @@
 package com.hamitmizrak.controller.api.interfaces;
 
+import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.controller.api.ICrudApi;
+import com.hamitmizrak.error.ApiResult;
 import org.springframework.http.ResponseEntity;
 
-// D: Dto
-public interface IBlogCategoryApi <D> extends ICrudApi<D> {
+public interface IBlogCategoryApi<D> extends ICrudApi<D> {
 
-    // SPEED DATA Category
-    public ResponseEntity<String>  blogCategorySpeedData(Integer data);
+    // ALL DELETE
+    public ResponseEntity<String> categoryApiAllDelete();
 
-    // DELETE ALL
-    public ResponseEntity<String> blogCategoryDeleteAll();
+    // SPEED DATA
+    public ResponseEntity<String> categoryApiSpeedData(Integer data);
 }

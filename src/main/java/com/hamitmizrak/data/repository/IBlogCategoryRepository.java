@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface IBlogCategoryRepository extends JpaRepository<BlogCategoryEntity,Long> {
+public interface IBlogCategoryRepository extends JpaRepository<BlogCategoryEntity, Long> {
 
     // Delivered Query
-    Optional<BlogCategoryEntity>  findByCategoryNameIgnoreCase(String categoryName);
+    Optional<BlogCategoryEntity> findByCategoryNameIgnoreCase(String categoryName);
     boolean existsByCategoryNameIgnoreCase(String categoryName);
 }
