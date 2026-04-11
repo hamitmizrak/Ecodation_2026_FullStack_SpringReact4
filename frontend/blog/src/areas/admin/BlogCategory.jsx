@@ -9,7 +9,6 @@ import axios from 'axios';
 import { API_BASE, ENDPOINTS } from '../../config/api';
 import { showSuccess, showError } from './resuability/toastHelper'; // varsa kullan; yoksa console.log ile değiştir
 
-
 // -------- Helpers --------
 const extractData = (res) => {
   const d = res?.data;
@@ -29,7 +28,6 @@ function GlobalBackdrop({ show, onClose }) {
     />
   );
 }
-
 
 export default function BlogCategory() {
   // ---- State ----
@@ -268,8 +266,29 @@ export default function BlogCategory() {
     </button>
   );
 
-
-  return <div>BlogCategory</div>;
+  return (
+    <React.Fragment>
+      <div class="container py-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <h2 class="mb-0">Blog Kategori</h2>
+          <div class="d-flex gap-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Ara (ID/Ad)"
+              style={{ minWidth: 220 }}
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setPage(1);
+              }}
+            />
+            <button class="btn btn-primary" onClick={openCreate}>
+              Yeni Kategori
+            </button>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
 }
-
-
