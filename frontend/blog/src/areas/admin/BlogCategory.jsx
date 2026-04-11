@@ -103,6 +103,172 @@ export default function BlogCategory() {
     });
   }, [items, query]);
 
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    arr.sort((a, b) => {
+      const va =
+        sortKey === 'categoryName'
+          ? (a.categoryName ?? '').toLowerCase()
+          : sortKey === 'systemCreatedDate'
+            ? new Date(a.systemCreatedDate || 0).getTime()
+            : (a.categoryId ?? a.id ?? 0);
+      const vb =
+        sortKey === 'categoryName'
+          ? (b.categoryName ?? '').toLowerCase()
+          : sortKey === 'systemCreatedDate'
+            ? new Date(b.systemCreatedDate || 0).getTime()
+            : (b.categoryId ?? b.id ?? 0);
+      const r = va < vb ? -1 : va > vb ? 1 : 0;
+      return sortDir === 'asc' ? r : -r;
+    });
+    return arr;
+  }, [filtered, sortKey, sortDir]);
+
+  const total = sorted.length;
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
+  const currentPage = Math.min(page, pageCount);
+  const paged = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return sorted.slice(start, start + pageSize);
+  }, [sorted, currentPage, pageSize]);
+
+  // ---- Form Helpers ----
+  const resetForm = () => {
+    setForm({ categoryName: '' });
+    setFormError({});
+  };
+
+  const openCreate = () => {
+    closeAll();
+    resetForm();
+    setShowCreate(true);
+  };
+  const closeCreate = () => {
+    setShowCreate(false);
+    resetForm();
+  };
+
+  const openEdit = (row) => {
+    closeAll();
+    setSelected(row);
+    setForm({ categoryName: row?.categoryName || '' });
+    setFormError({});
+    setShowEdit(true);
+  };
+  const closeEdit = () => {
+    setShowEdit(false);
+    setSelected(null);
+    resetForm();
+  };
+
+  const openView = (row) => {
+    closeAll();
+    setSelected(row);
+    setShowView(true);
+  };
+  const closeView = () => {
+    setShowView(false);
+    setSelected(null);
+  };
+
+  const openDelete = (row) => {
+    closeAll();
+    setSelected(row);
+    setShowDelete(true);
+  };
+  const closeDelete = () => {
+    setShowDelete(false);
+    setSelected(null);
+  };
+
+  const closeAll = () => {
+    setShowCreate(false);
+    setShowEdit(false);
+    setShowView(false);
+    setShowDelete(false);
+  };
+
+  // ---- CRUD ----
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setForm((p) => ({ ...p, [name]: value }));
+    setFormError((p) => ({ ...p, [name]: undefined }));
+  };
+
+  const submitCreate = async (e) => {
+    e.preventDefault();
+    const err = {};
+    if (!form.categoryName?.trim()) err.categoryName = 'Kategori adı zorunlu';
+    setFormError(err);
+    if (Object.keys(err).length) return;
+
+    try {
+      await axios.post(`${API_BASE}${ENDPOINTS.BLOG_CATEGORY.CREATE}`, {
+        categoryName: form.categoryName.trim(),
+      });
+      showSuccess?.('Kategori eklendi.') ?? console.log('Kategori eklendi.');
+      closeCreate();
+      fetchList();
+    } catch (ex) {
+      showError?.(ex?.response?.data?.message || 'Kategori eklenemedi.') ?? console.error(ex);
+      setFormError(ex?.response?.data?.validationErrors || {});
+    }
+  };
+
+  const submitEdit = async (e) => {
+    e.preventDefault();
+    const err = {};
+    if (!form.categoryName?.trim()) err.categoryName = 'Kategori adı zorunlu';
+    setFormError(err);
+    if (Object.keys(err).length) return;
+
+    try {
+      const id = selected?.categoryId ?? selected?.id;
+      if (id == null) throw new Error('ID yok.');
+      await axios.put(`${API_BASE}${ENDPOINTS.BLOG_CATEGORY.UPDATE(id)}`, {
+        categoryName: form.categoryName.trim(),
+      });
+      showSuccess?.('Kategori güncellendi.') ?? console.log('Kategori güncellendi.');
+      closeEdit();
+      fetchList();
+    } catch (ex) {
+      showError?.(ex?.response?.data?.message || 'Kategori güncellenemedi.') ?? console.error(ex);
+      setFormError(ex?.response?.data?.validationErrors || {});
+    }
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const id = selected?.categoryId ?? selected?.id;
+      if (id == null) throw new Error('ID yok.');
+      await axios.delete(`${API_BASE}${ENDPOINTS.BLOG_CATEGORY.DELETE(id)}`);
+      showSuccess?.('Kategori silindi.') ?? console.log('Kategori silindi.');
+      closeDelete();
+      fetchList();
+    } catch (ex) {
+      showError?.(ex?.response?.data?.message || 'Silinemedi.') ?? console.error(ex);
+    }
+  };
+
+  // ---- Render ----
+  const SortBtn = ({ k, children }) => (
+    <button
+      type="button"
+      className="btn btn-link p-0 ms-1"
+      title="Sırala"
+      onClick={() => {
+        if (sortKey === k) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+        else {
+          setSortKey(k);
+          setSortDir('asc');
+        }
+      }}
+    >
+      {children} {sortKey === k ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+    </button>
+  );
+
+
   return <div>BlogCategory</div>;
 }
 
