@@ -288,6 +288,11 @@ export default function BlogCategory() {
             </button>
           </div>
         </div>
+
+        {/* TABLE */}
+        <div class="table-responsive">
+          <table className="table table-striped table-bordered align-middle"></table>
+        </div>
       </div>
     </React.Fragment>
   );
