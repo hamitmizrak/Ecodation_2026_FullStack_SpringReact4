@@ -31,16 +31,16 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Uygulamanın ana render’ı
 root.render(
-    <Provider store={store}>
+  <Provider store={store}>
+    {' '}
+    {/* Redux context (store tüm alt komponentlere ulaşır) */}
+    <BrowserRouter>
+        <ReusabilityToast/>
         {' '}
-        {/* Redux context (store tüm alt komponentlere ulaşır) */}
-        <BrowserRouter>
-            <ReusabilityToast/>
-            {' '}
-            {/* Router context (url değişimini yönetir) */}
-            <Router /> {/* Sizin ana Routes component’iniz */}
-        </BrowserRouter>
-    </Provider>
+      {/* Router context (url değişimini yönetir) */}
+      <Router /> {/* Sizin ana Routes component’iniz */}
+    </BrowserRouter>
+  </Provider>
 );
 
 // NOTLAR:
