@@ -375,6 +375,21 @@ export default function BlogCategory() {
                     </table>
                 </div> {/*end table*/}
 
+                {/*Pagination*/}
+                <div className="d-flex align-items-center justify-content-between mt-2">
+                    <div>
+                        Toplam: <b>{total}</b> Kayıt, Sayfa <b>{currentPage}</b> / <b>{pageCount}</b>
+                    </div>
+
+                    <div className="d-flex align-items-center gap-2">
+                        <select>
+
+                        </select>
+                    </div>
+
+
+                </div>
+
             </div>  {/*end container*/}
         </React.Fragment>
     );
