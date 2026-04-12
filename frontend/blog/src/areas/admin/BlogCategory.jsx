@@ -291,7 +291,24 @@ export default function BlogCategory() {
 
         {/* TABLE */}
         <div class="table-responsive">
-          <table className="table table-striped table-bordered align-middle"></table>
+          <table className="table table-striped table-bordered align-middle">
+              {/*THEAD*/}
+              <thead>
+              <tr style={{width:90}}>
+                  ID <SortBtn temp="categoryId" className="mr-1"/>
+              </tr>
+              <tr style={{width:90}}>
+                  KATEGORI ADI <SortBtn temp="categoryName" className="mr-1"/>
+              </tr>
+              <tr style={{width:220}}>
+                  Oluşturma Tarihi <SortBtn temp="systemCreatedDate" className="mr-1"/>
+              </tr>
+
+              <tr style={{width:160}}>İşlemler </tr>
+              </thead>
+
+              {/*TBODY*/}
+          </table>
         </div>
       </div>
     </React.Fragment>
