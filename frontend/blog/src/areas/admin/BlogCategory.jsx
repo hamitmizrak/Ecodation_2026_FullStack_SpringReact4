@@ -415,6 +415,32 @@ export default function BlogCategory() {
                 </div> {/*end Pagination*/}
 
                 {/*CREATE MODAL*/}
+                {showCreate && (
+                    <div
+                        className="modal fade show d-block"
+                    tabIndex={-1}
+                        role="dialog"
+                        style={{zIndex: 1050}}
+                        onClick{{closeCreate}}>
+                        <div
+                            className="modal-dialog"
+                            onClick={(e)=> e.stopPropagation()}>
+                            <div className="modal-content">
+                                <form onSubmit={submitCreate}>
+                                    {/*HEADER*/}
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Yeni Kategori </h5>
+                                        <button type="button" className"btn-close" onClick={closeCreate}/>
+                                    </div>
+
+                                    {/*BODY*/}
+                                    <div className="modal-body"></div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                )}
 
 
             </div>  {/*end container*/}
