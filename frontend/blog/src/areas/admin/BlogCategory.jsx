@@ -287,7 +287,7 @@ export default function BlogCategory() {
                             }}
                         />
                         <button class="btn btn-primary" onClick={openCreate}>
-                            Yeni Kategori
+                           <i className="fa fa-plus"></i> Yeni Kategori
                         </button>
                     </div>
                 </div>
