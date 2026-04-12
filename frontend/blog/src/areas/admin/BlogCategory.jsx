@@ -403,12 +403,20 @@ export default function BlogCategory() {
                             >
                                  Geri
                             </button>
+
+                            {/*İleri tuşu*/}
+                            <button className="btn btn-outline-danger"
+                                    disabled={currentPage >= pageCount}
+                                    onClick={() => setPage((p)=> Math.min(pageCount, p+1))}>
+                                İleri
+                            </button>
                         </div>
-
                     </div>
-
-
                 </div> {/*end Pagination*/}
+
+                {/*CREATE MODAL*/}
+
+
             </div>  {/*end container*/}
         </React.Fragment>
     );
