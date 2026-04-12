@@ -388,8 +388,7 @@ export default function BlogCategory() {
                     </div>
 
 
-                </div>
-
+                </div> {/*end Pagination*/}
             </div>  {/*end container*/}
         </React.Fragment>
     );
