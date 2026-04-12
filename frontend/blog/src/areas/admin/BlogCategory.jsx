@@ -7,7 +7,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import axios from 'axios';
 import {API_BASE, ENDPOINTS} from '../../config/api';
-import {showSuccess, showError} from './resuability/toastHelper'; // varsa kullan; yoksa console.log ile değiştir
+import {showSuccess, showError} from './resuability/toastHelper'; // Hata alt yapısı varsa kullan; yoksa console.log ile değiştir
 
 // -------- Helpers --------
 const extractData = (res) => {
@@ -15,6 +15,7 @@ const extractData = (res) => {
     return d?.data ?? d?.result ?? d?.items ?? d?.content ?? d ?? [];
 };
 
+// Format Date
 const fmtDate = (iso) =>
     !iso ? '' : new Date(iso).toLocaleString('tr-TR', {timeZone: 'Europe/Istanbul'});
 
@@ -29,12 +30,13 @@ function GlobalBackdrop({show, onClose}) {
     );
 }
 
+// BlogCategory
 export default function BlogCategory() {
     // ---- State ----
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Modals
+    // Modals CRUD
     const [showCreate, setShowCreate] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showView, setShowView] = useState(false);
@@ -86,6 +88,8 @@ export default function BlogCategory() {
             setLoading(false);
         }
     };
+
+    // useEffect Hooks
     useEffect(() => {
         fetchList();
     }, []);
@@ -130,12 +134,22 @@ export default function BlogCategory() {
         return sorted.slice(start, start + pageSize);
     }, [sorted, currentPage, pageSize]);
 
+    //////////////////////////////////////////////////////////
     // ---- Form Helpers ----
     const resetForm = () => {
         setForm({categoryName: ''});
         setFormError({});
     };
 
+    // Close ALL
+    const closeAll = () => {
+        setShowCreate(false);
+        setShowEdit(false);
+        setShowView(false);
+        setShowDelete(false);
+    };
+
+    // Open/Close CREATE
     const openCreate = () => {
         closeAll();
         resetForm();
@@ -146,6 +160,7 @@ export default function BlogCategory() {
         resetForm();
     };
 
+    // Open/Close EDIT
     const openEdit = (row) => {
         closeAll();
         setSelected(row);
@@ -159,6 +174,7 @@ export default function BlogCategory() {
         resetForm();
     };
 
+    // Open/Close VIEW
     const openView = (row) => {
         closeAll();
         setSelected(row);
@@ -169,6 +185,7 @@ export default function BlogCategory() {
         setSelected(null);
     };
 
+    // Open/Close DELETE
     const openDelete = (row) => {
         closeAll();
         setSelected(row);
@@ -179,12 +196,7 @@ export default function BlogCategory() {
         setSelected(null);
     };
 
-    const closeAll = () => {
-        setShowCreate(false);
-        setShowEdit(false);
-        setShowView(false);
-        setShowDelete(false);
-    };
+
 
     // ---- CRUD ----
     const onChange = (e) => {
