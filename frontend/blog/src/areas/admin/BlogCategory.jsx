@@ -268,7 +268,10 @@ export default function BlogCategory() {
 
     return (
         <React.Fragment>
+            {/*CONTAINER*/}
             <div class="container py-4">
+
+                {/*CREATE*/}
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h2 class="mb-0">Blog Kategori</h2>
                     <div class="d-flex gap-2">
@@ -331,15 +334,36 @@ export default function BlogCategory() {
                                     <td>{row.categoryName}</td>
                                     <td>{fmtDate(row.systemCreatedDate)}</td>
                                     <td>
+                                            <div className="text-center btn-group btn-group-sm">
 
-                                    </td>
+                                                {/*Göster*/}
+                                                <button className="btn btn-outline-secondary" title="Detay" onClick={()=>openView(row)}>
+                                                    <i className="fas fa-eye"></i>
+                                                    {/*<i className="fas fa-edit"></i>*/}
+                                                </button>
+
+
+                                                {/*Düzenle*/}
+                                                <button className="btn btn-outline-primary" title="Düzenle" onClick={()=>openEdit(row)}>
+                                                    <i className="fas fa-edit"></i>
+                                                   {/* <i className="fas fa-pen"></i>*/}
+                                                </button>
+
+                                                {/*Silme*/}
+                                                <button className="btn btn-outline-danger" title="Sil" onClick={()=>openDelete(row)}>
+                                                    <i className="fas fa-trash"></i>
+                                                </button>
+
+                                            </div>
+                                     </td>
                                 </tr>
                             ))
                         )}
                         </tbody>
                     </table>
-                </div>
-            </div>
+                </div> {/*end table*/}
+
+            </div>  {/*end container*/}
         </React.Fragment>
     );
 }
