@@ -382,9 +382,29 @@ export default function BlogCategory() {
                     </div>
 
                     <div className="d-flex align-items-center gap-2">
-                        <select>
-
+                        <select
+                            style={{width: 90}}
+                            className="form-select" value={pageSize} onChange={(e)=>{
+                            setPageSize(parseInt(e.target.value || '10' , 10));
+                            setPage(1)
+                        }}>
+                            {[5,10,20,50,100,200].map((n)=> (
+                                <option key={n} value={n}>{n}/sayfa
+                                </option>
+                            ))}
                         </select>
+                        <div className="btn-group">
+
+                            {/*Geri tuşu*/}
+                            <button
+                                className="btn btn-outline-secondary"
+                                disabled={currentPage <= 1}
+                                onClick={() => setPage((p)=> Math.max(1, p-1))}
+                            >
+                                 Geri
+                            </button>
+                        </div>
+
                     </div>
 
 
