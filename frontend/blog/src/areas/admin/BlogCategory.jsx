@@ -454,12 +454,27 @@ export default function BlogCategory() {
                                     </div>
 
                                     {/*MODAL-FOOTER*/}
+                                    <div className="modal-footer">
+                                        {/*Kapat Butonu*/}
+                                        <button
+                                            type="button"
+                                            className="btn btn-danger"
+                                            onClick={closeCreate}>
+                                            Kapat
+                                        </button>
+
+                                        {/*Kapat Butonu*/}
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary">
+                                            Kaydet
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
-                )}
+                )}  {/*end Create Modal*/}
 
 
             </div>  {/*end container*/}
