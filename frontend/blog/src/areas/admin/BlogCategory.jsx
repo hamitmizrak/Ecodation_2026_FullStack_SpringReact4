@@ -474,7 +474,23 @@ export default function BlogCategory() {
                             </div>
                         </div>
                     </div>
-                )}  {/*end Create Modal*/}
+                )};  {/*end Create Modal*/}
+
+
+                {/*EDIT MODAL*/}
+                {showEdit && (
+                    <div
+                    className="modal fade show d-block"
+                    tabIndex={-1}
+                    role="dialog"
+                    style={{zIndex: 1050}}
+                    onClick{{closeEdit}}>
+
+                        <div className="modal-dialog" onClick={(e)=>e.stopPropagation()}>
+                            <div className="modal-content">4444</div>
+                        </div>
+                    </div>
+                    )}; {/*end Edit Modal*/}
 
 
             </div>  {/*end container*/}
