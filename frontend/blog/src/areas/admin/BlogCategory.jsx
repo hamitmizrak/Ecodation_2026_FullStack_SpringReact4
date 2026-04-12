@@ -295,19 +295,39 @@ export default function BlogCategory() {
               {/*THEAD*/}
               <thead>
               <tr style={{width:90}}>
-                  ID <SortBtn temp="categoryId" className="mr-1"/>
+                  ID <SortBtn temp="categoryId" className="me-1"/>
               </tr>
               <tr style={{width:90}}>
-                  KATEGORI ADI <SortBtn temp="categoryName" className="mr-1"/>
+                  KATEGORI ADI <SortBtn temp="categoryName" className="me-1"/>
               </tr>
               <tr style={{width:220}}>
-                  Oluşturma Tarihi <SortBtn temp="systemCreatedDate" className="mr-1"/>
+                  Oluşturma Tarihi <SortBtn temp="systemCreatedDate" className="me-1"/>
               </tr>
 
               <tr style={{width:160}}>İşlemler </tr>
               </thead>
 
               {/*TBODY*/}
+              <tbody>
+              {loading ? (
+                  <tr>
+                      <td colspan={4} className="text-center">
+                      <span className="me-1 spinner-border spinner-border-sm"/>
+                          Yükleniyor...
+                      </td>
+                  </tr>
+              ) : paged.length === 0 ? (
+                  <tr>
+                      <td colspan={4} className="text-center text-muted">
+                          Kayıt Yok
+                      </td>
+                  </tr>
+              ):(
+                  paged.map((row) => (
+                      <tr></tr>
+                  ))
+              )}
+              </tbody>
           </table>
         </div>
       </div>
