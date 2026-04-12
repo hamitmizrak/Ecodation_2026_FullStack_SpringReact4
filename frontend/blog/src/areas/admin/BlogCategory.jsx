@@ -433,8 +433,27 @@ export default function BlogCategory() {
                                         <button type="button" className"btn-close" onClick={closeCreate}/>
                                     </div>
 
-                                    {/*BODY*/}
-                                    <div className="modal-body"></div>
+                                    {/*MODAL-BODY*/}
+                                    <div className="modal-body">
+                                        <div className="mb-3">
+                                            <label htmlFor="categoryName" className="form-label">Kategori Adı</label>
+                                            <input
+                                                id="categoryName"
+                                                name="categoryName"
+                                                type="text"
+                                                value={form.categoryName}
+                                                onChange={onChange}
+                                                required={}
+                                                className={`form-control ${formError.categoryName ? 'is-invalid' : ''}`}/>
+                                            {formError.categoryName&&(
+                                                <div className="invalid-feedback">
+                                                    {formError.categoryName}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/*MODAL-FOOTER*/}
                                 </form>
                             </div>
 
