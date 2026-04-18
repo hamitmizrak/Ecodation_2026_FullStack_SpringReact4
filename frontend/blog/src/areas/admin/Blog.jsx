@@ -75,7 +75,56 @@ function Blog() {
 
     const anyOpen = showCreate || showEdit || showView || showDelete;
 
+    // ---------- Effects ----------
+    useEffect(() => {
+        if (anyOpen) document.body.classList.add('modal-open');
+        else document.body.classList.remove('modal-open');
+        return () => document.body.classList.remove('modal-open');
+    }, [anyOpen]);
 
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key !== 'Escape') return;
+            if (showCreate) return closeCreate();
+            if (showEdit) return closeEdit();
+            if (showView) return closeView();
+            if (showDelete) return closeDelete();
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [showCreate, showEdit, showView, showDelete]);
+
+    // fetchBlogs
+    const fetchBlogs = async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get(`${API_BASE}${ENDPOINTS.BLOG.LIST}`);
+            const data = extractData(res);
+            const arr = Array.isArray(data) ? data : Array.isArray(data?.content) ? data.content : [];
+            setItems(arr);
+        } catch (e) {
+            showError?.('Blog listesi yüklenemedi.') ?? console.error(e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchCategories = async () => {
+        try {
+            const res = await axios.get(`${API_BASE}${ENDPOINTS.BLOG_CATEGORY.LIST}`);
+            const data = extractData(res);
+            const arr = Array.isArray(data) ? data : Array.isArray(data?.content) ? data.content : [];
+            setCats(arr);
+        } catch (e) {
+            showError?.('Kategori listesi yüklenemedi.') ?? console.error(e);
+        }
+    };
+
+    //
+    useEffect(() => {
+        fetchBlogs();  //.then(r => t.prototype).then();
+        fetchCategories();
+    }, []);
 
 
     return <div>Blog</div>;
