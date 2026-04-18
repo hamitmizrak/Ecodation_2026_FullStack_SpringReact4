@@ -234,6 +234,77 @@ function Blog() {
         resetForm();
     };
 
+    // ---------- openEdit/closeEdit ----------
+    const openEdit = (row) => {
+        closeAll();
+        setSelected(row);
+        resetForm();
+        setForm({
+            header: row?.header || '',
+            title: row?.title || '',
+            content: row?.content || '',
+            image: row?.image || '',
+            categoryId: row?.blogCategoryDto?.categoryId ?? row?.blogCategoryDto?.id ?? '',
+        });
+        setShowEdit(true);
+    };
+    const closeEdit = () => {
+        setShowEdit(false);
+        setSelected(null);
+        resetForm();
+    };
+
+
+    // ---------- openView/closeView ----------
+    const openView = (row) => {
+        closeAll();
+        setSelected(row);
+        setShowView(true);
+    };
+    const closeView = () => {
+        setShowView(false);
+        setSelected(null);
+    };
+
+    // ---------- openDelete/closeDelete ----------
+    const openDelete = (row) => {
+        closeAll();
+        setSelected(row);
+        setShowDelete(true);
+    };
+    const closeDelete = () => {
+        setShowDelete(false);
+        setSelected(null);
+    };
+
+
+    // ---------- Validate ----------
+    const validateBlog = () => {
+        const err = {};
+        if (!form.header?.trim()) err.header = 'Header zorunlu';
+        if (!form.title?.trim()) err.title = 'Başlık zorunlu';
+        if (!form.content?.trim()) err.content = 'İçerik zorunlu';
+        if (!form.categoryId) err.categoryId = 'Kategori seçiniz';
+        return err;
+    };
+
+    // ---------- Build Payloads ----------
+    const jsonBody = () => ({
+        header: form.header.trim(),
+        title: form.title.trim(),
+        content: form.content.trim(),
+        image: form.image?.trim() || 'resim.png',
+        blogCategoryDto: {categoryId: Number(form.categoryId)},
+    });
+
+    // blog parçasını application/json olarak ekle (kritik!)
+    const buildMultipart = () => {
+        const fd = new FormData();
+        const blob = new Blob([JSON.stringify(jsonBody())], {type: 'application/json'});
+        fd.append('blog', blob);
+        if (file) fd.append('file', file); // tip otomatik belirlenir (image/*)
+        return fd;
+    };
 
 
 
