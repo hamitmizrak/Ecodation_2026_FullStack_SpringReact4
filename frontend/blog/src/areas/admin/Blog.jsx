@@ -374,11 +374,28 @@ function Blog() {
         }
     };
 
+    // ---------- UI ----------
+    const SortBtn = ({k, children}) => (
+        <button
+            type="button"
+            className="btn btn-link p-0 ms-1"
+            title="Sırala"
+            onClick={() => {
+                if (sortKey === k) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'));
+                else {
+                    setSortKey(k);
+                    setSortDir('asc');
+                }
+            }}
+        >
+            {children} {sortKey === k ? (sortDir === 'asc' ? '▲' : '▼') : ''}
+        </button>
+    );
 
 
-
-
-    return <div>Blog</div>;
+    return <>
+    <div className="container py-4"></div>
+    </>;
 }
 
 export default Blog;
