@@ -306,6 +306,75 @@ function Blog() {
         return fd;
     };
 
+    // ---------- CRUD ----------
+    const submitCreate = async (e) => {
+        e.preventDefault();
+        const err = validateBlog();
+        setFormError(err);
+        if (Object.keys(err).length) return;
+
+        try {
+            if (file) {
+                // MULTIPART: header set ETME — tarayıcı boundary ekler
+                await axios.post(`${API_BASE}${ENDPOINTS.BLOG.CREATE}`, buildMultipart());
+            } else {
+                // JSON
+                await axios.post(`${API_BASE}${ENDPOINTS.BLOG.CREATE}`, jsonBody());
+            }
+            showSuccess?.('Blog eklendi.') ?? console.log('Blog eklendi.');
+            closeCreate();
+            fetchBlogs();
+        } catch (ex) {
+            const msg = ex?.response?.data?.message || ex?.message || 'Blog eklenemedi.';
+            showError?.(msg) ?? console.error(ex);
+            setFormError(ex?.response?.data?.validationErrors || {});
+        }
+    };
+
+    const submitEdit = async (e) => {
+        e.preventDefault();
+        const err = validateBlog();
+        setFormError(err);
+        if (Object.keys(err).length) return;
+
+        try {
+            const id = selected?.blogId ?? selected?.id;
+            if (id == null) throw new Error('Blog ID yok.');
+
+            if (file) {
+                // MULTIPART: header set ETME — tarayıcı boundary ekler
+                await axios.put(`${API_BASE}${ENDPOINTS.BLOG.UPDATE(id)}`, buildMultipart());
+            } else {
+                // JSON
+                await axios.put(`${API_BASE}${ENDPOINTS.BLOG.UPDATE(id)}`, jsonBody());
+            }
+
+            showSuccess?.('Blog güncellendi.') ?? console.log('Blog güncellendi.');
+            closeEdit();
+            fetchBlogs();
+        } catch (ex) {
+            const msg = ex?.response?.data?.message || ex?.message || 'Blog güncellenemedi.';
+            showError?.(msg) ?? console.error(ex);
+            setFormError(ex?.response?.data?.validationErrors || {});
+        }
+    };
+
+    const confirmDelete = async () => {
+        try {
+            //alert("Silme alanı")
+            const id = selected?.blogId ?? selected?.id;
+            if (id == null) throw new Error('Blog ID yok.');
+            await axios.delete(`${API_BASE}${ENDPOINTS.BLOG.DELETE(id)}`);
+            showSuccess?.('Blog silindi.') ?? console.log('Blog silindi.');
+            closeDelete();
+            fetchBlogs();
+        } catch (ex) {
+            const msg = ex?.response?.data?.message || ex?.message || 'Silinemedi.';
+            showError?.(msg) ?? console.error(ex);
+        }
+    };
+
+
 
 
 
