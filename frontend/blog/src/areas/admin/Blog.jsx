@@ -38,6 +38,30 @@ function GlobalBackdrop({show, onClose}) {
 
 ///////////////////////////////////////////////////////////////
 function Blog() {
+
+    // Data
+    const [items, setItems] = useState([]);
+    const [cats, setCats] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    // Modals
+    const [showCreate, setShowCreate] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const [showView, setShowView] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+
+    // Selection + Form
+    const [selected, setSelected] = useState(null);
+    const [form, setForm] = useState({
+        header: '',
+        title: '',
+        content: '',
+        image: '', // text URL (opsiyonel)
+        categoryId: '', // dropdown
+    });
+    const [formError, setFormError] = useState({});
+
+
   return <div>Blog</div>;
 }
 
