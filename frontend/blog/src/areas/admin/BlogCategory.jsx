@@ -575,8 +575,40 @@ export default function BlogCategory() {
 
                 {/*DELETE MODAL*/}
                 {showDelete && selected && (
-                    <div></div>
+                    <div
+                    className="modal fade show d-block"
+                    tabIndex={-1}
+                    role="dialog"
+                    style={{zIndex: 1050}}
+                    onClick{closeDelete}>
+                        <div className="modal-dialog" onClick={(e)=> e.stopPropagation()}>
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title text-danger">Silme Onayı</h5>
+                                    <button type="button" className="btn-close" onClick={closeDelete}/>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="mb-2">
+                                        <b> {selected.categoryName}</b> kategorisini silmek ister misiniz ?
+                                    </div>
+                                    <div className="text-muted">
+                                        <b>ID:</b> {selected.categoryId ?? selected.id}
+                                    </div>
+                                </div>
+
+                                <div className="modal-footer">
+                                    <button className="btn btn-secondary" onClick={closeDelete}>Vazgeç</button>
+
+                                    <button className="btn btn-danger" onClick={confirmDelete}>Sil</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
                 )}; {/*end Delete Modal*/}
+
+                <GlobalBackdrop show={anyOpen} />
             </div>
             {/*end container*/}
         </React.Fragment>
