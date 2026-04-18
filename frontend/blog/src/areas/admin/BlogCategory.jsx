@@ -7,7 +7,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import axios from 'axios';
 import {API_BASE, ENDPOINTS} from '../../config/api';
-import {showSuccess, showError} from './resuability/toastHelper'; // Hata alt yapısı varsa kullan; yoksa console.log ile değiştir
+import {showSuccess, showError} from './resuability/toastHelper';
+import {useBlocker} from "react-router-dom"; // Hata alt yapısı varsa kullan; yoksa console.log ile değiştir
 
 // -------- Helpers --------
 const extractData = (res) => {
@@ -197,7 +198,6 @@ export default function BlogCategory() {
     };
 
 
-
     // ---- CRUD ----
     const onChange = (e) => {
         const {name, value} = e.target;
@@ -299,7 +299,7 @@ export default function BlogCategory() {
                             }}
                         />
                         <button class="btn btn-primary" onClick={openCreate}>
-                           <i className="fa fa-plus"></i> Yeni Kategori
+                            <i className="fa fa-plus"></i> Yeni Kategori
                         </button>
                     </div>
                 </div>
@@ -346,34 +346,38 @@ export default function BlogCategory() {
                                     <td>{row.categoryName}</td>
                                     <td>{fmtDate(row.systemCreatedDate)}</td>
                                     <td>
-                                            <div className="text-center btn-group btn-group-sm">
+                                        <div className="text-center btn-group btn-group-sm">
 
-                                                {/*Göster*/}
-                                                <button className="btn btn-outline-secondary" title="Detay" onClick={()=>openView(row)}>
-                                                    <i className="fas fa-eye"></i>
-                                                    {/*<i className="fas fa-edit"></i>*/}
-                                                </button>
+                                            {/*Göster*/}
+                                            <button className="btn btn-outline-secondary" title="Detay"
+                                                    onClick={() => openView(row)}>
+                                                <i className="fas fa-eye"></i>
+                                                {/*<i className="fas fa-edit"></i>*/}
+                                            </button>
 
 
-                                                {/*Düzenle*/}
-                                                <button className="btn btn-outline-primary" title="Düzenle" onClick={()=>openEdit(row)}>
-                                                    <i className="fas fa-edit"></i>
-                                                   {/* <i className="fas fa-pen"></i>*/}
-                                                </button>
+                                            {/*Düzenle*/}
+                                            <button className="btn btn-outline-primary" title="Düzenle"
+                                                    onClick={() => openEdit(row)}>
+                                                <i className="fas fa-edit"></i>
+                                                {/* <i className="fas fa-pen"></i>*/}
+                                            </button>
 
-                                                {/*Silme*/}
-                                                <button className="btn btn-outline-danger" title="Sil" onClick={()=>openDelete(row)}>
-                                                    <i className="fas fa-trash"></i>
-                                                </button>
+                                            {/*Silme*/}
+                                            <button className="btn btn-outline-danger" title="Sil"
+                                                    onClick={() => openDelete(row)}>
+                                                <i className="fas fa-trash"></i>
+                                            </button>
 
-                                            </div>
-                                     </td>
+                                        </div>
+                                    </td>
                                 </tr>
                             ))
                         )}
                         </tbody>
                     </table>
-                </div> {/*end table*/}
+                </div>
+                {/*end table*/}
 
                 {/*Pagination*/}
                 <div className="d-flex align-items-center justify-content-between mt-2">
@@ -384,11 +388,11 @@ export default function BlogCategory() {
                     <div className="d-flex align-items-center gap-2">
                         <select
                             style={{width: 90}}
-                            className="form-select" value={pageSize} onChange={(e)=>{
-                            setPageSize(parseInt(e.target.value || '10' , 10));
+                            className="form-select" value={pageSize} onChange={(e) => {
+                            setPageSize(parseInt(e.target.value || '10', 10));
                             setPage(1)
                         }}>
-                            {[5,10,20,50,100,200].map((n)=> (
+                            {[5, 10, 20, 50, 100, 200].map((n) => (
                                 <option key={n} value={n}>{n}/sayfa
                                 </option>
                             ))}
@@ -399,32 +403,33 @@ export default function BlogCategory() {
                             <button
                                 className="btn btn-outline-secondary"
                                 disabled={currentPage <= 1}
-                                onClick={() => setPage((p)=> Math.max(1, p-1))}
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
                             >
-                                 Geri
+                                Geri
                             </button>
 
                             {/*İleri tuşu*/}
                             <button className="btn btn-outline-danger"
                                     disabled={currentPage >= pageCount}
-                                    onClick={() => setPage((p)=> Math.min(pageCount, p+1))}>
+                                    onClick={() => setPage((p) => Math.min(pageCount, p + 1))}>
                                 İleri
                             </button>
                         </div>
                     </div>
-                </div> {/*end Pagination*/}
+                </div>
+                {/*end Pagination*/}
 
                 {/*CREATE MODAL*/}
                 {showCreate && (
                     <div
                         className="modal fade show d-block"
-                    tabIndex={-1}
+                        tabIndex={-1}
                         role="dialog"
                         style={{zIndex: 1050}}
                         onClick{{closeCreate}}>
                         <div
                             className="modal-dialog"
-                            onClick={(e)=> e.stopPropagation()}>
+                            onClick={(e) => e.stopPropagation()}>
                             <div className="modal-content">
                                 <form onSubmit={submitCreate}>
                                     {/*HEADER*/}
@@ -445,7 +450,7 @@ export default function BlogCategory() {
                                                 onChange={onChange}
                                                 required={}
                                                 className={`form-control ${formError.categoryName ? 'is-invalid' : ''}`}/>
-                                            {formError.categoryName&&(
+                                            {formError.categoryName && (
                                                 <div className="invalid-feedback">
                                                     {formError.categoryName}
                                                 </div>
@@ -474,26 +479,70 @@ export default function BlogCategory() {
                             </div>
                         </div>
                     </div>
-                )};  {/*end Create Modal*/}
+                )}; {/*end Create Modal*/}
 
 
                 {/*EDIT MODAL*/}
                 {showEdit && (
                     <div
-                    className="modal fade show d-block"
-                    tabIndex={-1}
-                    role="dialog"
-                    style={{zIndex: 1050}}
-                    onClick{{closeEdit}}>
+                        className="modal fade show d-block"
+                        tabIndex={-1}
+                        role="dialog"
+                        style={{zIndex: 1050}}
+                        onClick{{closeEdit}}>
 
-                        <div className="modal-dialog" onClick={(e)=>e.stopPropagation()}>
-                            <div className="modal-content">4444</div>
+                        <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+                            <div className="modal-content">
+                                <form onSumit={submitEdit}>
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Kategori Düzenle</h5>
+                                        <button className="btn-close" onClick={closeEdit}/>
+                                    </div>
+
+                                    <div className="modal-body">
+                                        <div className="mb-3"><label htmlFor="" className="form-label">Kategori
+                                            Adı</label>
+                                            <input type="text" name="categoryName"
+                                                   className={`form-control ${formError.categoryName ? 'is-invalid' : ''}`}
+                                                   value={form.categoryName}
+                                                   onChange={onChange}
+                                                   required
+                                            />
+                                            {formError.categoryName && (
+                                                <div className="invalid-feedback">{formError.categoryName}</div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div className="modal-footer">
+                                        <button className="btn btn-secondary" onClick={closeEdit}>
+                                            Kapat
+                                        </button>
+                                        <button type="submit" className="btn btn-primary" onClick={closeEdit}>
+                                            Güncelle
+                                        </button>
+                                    </div>"
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    )}; {/*end Edit Modal*/}
+                )}; {/*end Edit Modal*/}
 
 
-            </div>  {/*end container*/}
+                {/*VIEW MODAL*/}
+                {showEdit && selected && (
+                    <div
+                        className="modal fade show d-block"
+                        tabIndex={-1}
+                        role="dialog"
+                        style={{zIndex: 1050}}
+                        onClick{closeView}>
+
+                    </div>
+
+                )}; {/*end View Modal*/}
+            </div>
+            {/*end container*/}
         </React.Fragment>
     );
 }
