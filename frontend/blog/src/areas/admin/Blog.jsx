@@ -62,7 +62,23 @@ function Blog() {
     const [formError, setFormError] = useState({});
 
 
-  return <div>Blog</div>;
+    // File state (multipart)
+    const [file, setFile] = useState(null);
+    const [filePreview, setFilePreview] = useState(''); // object URL
+
+    // UX: filter/sort/page
+    const [query, setQuery] = useState('');
+    const [sortKey, setSortKey] = useState('blogId'); // blogId|header|title|categoryName|systemCreatedDate
+    const [sortDir, setSortDir] = useState('asc');
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    const anyOpen = showCreate || showEdit || showView || showDelete;
+
+
+
+
+    return <div>Blog</div>;
 }
 
 export default Blog;
