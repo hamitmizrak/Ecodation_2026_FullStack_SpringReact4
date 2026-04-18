@@ -538,9 +538,45 @@ export default function BlogCategory() {
                         style={{zIndex: 1050}}
                         onClick{closeView}>
 
+                        <div className="modal-dialog" onClick={(e)=> e.stopPropagation()}>
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Kategori Detayı</h5>
+                                    <button className="btn-close" onClick={closeView}/>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="mb-2">
+                                         <b>ID:</b> {selected.categoryId ?? selected.id}
+                                    </div>
+
+                                    <div className="mb-2">
+                                        <b>ID:</b> {selected.categoryId ?? selected.id}
+                                    </div>
+
+                                    <div className="mb-2">
+                                        <b>Kategori Adı:</b> {selected.categoryName}
+                                    </div>
+
+                                    <div className="mb-2">
+                                        <b>Oluşturma Tarihi:</b> {fmtDate(selected.systemCreatedDate)}
+                                    </div>
+
+                                  <div className="modal-footer">
+                                      <button className="btn btn-secondary" onClick={closeView}>Kapat</button>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 )}; {/*end View Modal*/}
+
+
+                {/*DELETE MODAL*/}
+                {showDelete && selected && (
+                    <div></div>
+                )}; {/*end Delete Modal*/}
             </div>
             {/*end container*/}
         </React.Fragment>
