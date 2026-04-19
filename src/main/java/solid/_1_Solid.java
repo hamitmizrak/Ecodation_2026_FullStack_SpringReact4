@@ -32,7 +32,7 @@ public class _1_Solid {
     S1-) SOLID Türkçe Anlamları ?
     C1-)
      - S: Single Responsibility  ==> Tek sorumluk
-     - O: Open/Closed            ==> Geneişlemeye açık
+     - O: Open/Closed            ==> Genişlemeye açık
      - L: Liskov Substitution    ==> Yerine geçebilirlik
      - I: Interface Segregation  ==> Küçük ama amaç odaklı arayüz
      - D: Dependency Inversion   ==> Soyuta bağlılık
@@ -48,17 +48,17 @@ public class _1_Solid {
 
     S1-) O: Open/Closed  ?
     C1-)
-     - Anlamı:
-     - Amacı :
-     - Örneği:
-     - İhlal belirtisi
+     - Anlamı: Sistem bileşeni genişlemeye açık, mevcut çalışan kodu değiştirmeye kapalı olmalıdır.
+     - Amacı : Yeni davranıi eklerken stabil kodu bozmadan çalıştırmak
+     - Örneği: PaymentProcessor arayüzü vardır, CreditCardPayment, TransferPayment yeni bir sınıf eklemek
+     - İhlal belirtisi: Her yeni ödeme tipinde if-else veya switch yeni case ekleniyorsa OCP zayıftır
 
 
 
     S1-) L: Liskov Substitution  ?
     C1-)
-     - Anlamı:
-     - Amacı :
+     - Anlamı: Alt sınıf, üst sınıfın beklentilerini bozmadan onun yerine kullanabilmesidir
+     - Amacı : Kalıtımın güvenli ve davranışsal oalrak tutarlılığı ve kullanılmasını sağlamak
      - Örneği:
      - İhlal belirtisi
 
