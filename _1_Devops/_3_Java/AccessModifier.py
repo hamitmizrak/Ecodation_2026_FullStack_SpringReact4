@@ -1,6 +1,8 @@
 """
 S1-) Access Modifier Nedir ?
-C1-) Bir sınıfın alanın, metodun, constructorun nereden erişilebilir olduğunu belirleyen anahtar kelimeleridr.
+C1-)
+- Bir sınıfın veya üyenin hangi kapsamda erişebileceğinin belirleyen görünürlük mekanizmasıdır.
+- Bir sınıfın alanın, metodun, constructorun nereden erişilebilir olduğunu belirleyen anahtar kelimeleridr.
 -
 -
 
@@ -34,8 +36,8 @@ C4-) Access modifer konusu OOP içindekiş encapsulation ilkesi ile doğrudan ba
 -
 
 
-S5-)
-C5-)
+S5-) Top-level class neden private olamaz ?
+C5-) Çünkü top-level class dış dünyadan tamamen gizlenemez, java dil kurlaları buna izin vermez.
 -
 -
 -

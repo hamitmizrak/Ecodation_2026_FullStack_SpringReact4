@@ -128,7 +128,7 @@ C-17)
 
 S-18) Büyük binary dosyalar için standart Git yeterli midir  ?
 C-18)
-<<<<<<< HEAD
+
 =======
 -
 -
@@ -137,20 +137,8 @@ C-18)
 -
 
 
-
-S-18) Git komutlarını açıklayınız ?
-C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
->>>>>>> origin/master
--
--
--
--
--
-
-
-
-S-18) Git komutlarını açıklayınız ?
-C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
+S-19) Git komutlarını açıklayınız ?
+C-19) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git config --global user.name "Hamit Mızrak"
 - git config --global user.name
 - git config --global user.email "hamitmizrak@gmail.com"
@@ -164,10 +152,12 @@ C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git add <DOSYA_ADI>
 - git add .
 - git add -A             ==> Silinen, değişen ve yeni eklenen tüm dosyaları stage eder
+- git add -u             ==> Sadece takip edilen dosyadaki değişiklikleri stage eder yani yeni dosyaları almaz
 
 - git commit -m "Login validation bug fixed"
 - git commit -am "Dosya eklemeden add ve message"
-- git commit --amend -m "Mesaj değiştir"  ==> Son commitin mesajını veya içeriğini düzeltmek
+- git commit --amend                      ==> Son commitin düzeltir veya commit içeriğini güncellemek
+- git commit --amend -m "Mesaj değiştir"  ==> Son commitin mesajını düzeltir
 
 - git log
 - git log --decorate --oneline --graph --all
@@ -175,8 +165,36 @@ C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git log
 - git show 5a2227030
 - git diff          ==> Stage edilmemiş(-) değişiklileri gösterir.
-- git diff --staged ==> Stage edilmiş(+) henüz commit edilmemiş()-
--
+- git diff --staged ==> Stage edilmiş(+) henüz commit edilmemiş()
+
+- git rm <DOSYA_ADI>            ==> Hem git hemde klasörden kaldırılır
+- git rm --cached  <DOSYA_ADI>  ==> Dosyayı silmeden sadece Git takibini çıkarır.
+examples: git rm --cached .env
+
+- git mv <ESKI_DOSYA_ADI>  <YENI_DOSYA_ADI>  ==> Hem dosya adını hemde yerini değiştirmek istersek
+
 - git blame _1_Devops//_1_git/GitTutorials.py ==> Dosyanın satıurlarını en son hangi commit ve kişi bilgisini gösterir
+
+- git reflog  ==> HEAD hareketlerini geçmişini gösterir Yanlış reset veya silinen branch kurtamadan çok önemlidir.
+
+- git branch                     ==> Branch listele
+- git branch Backend             ==> Yeni bir branch oluştur.
+
+- git branch -d Backend          ==> Merge edilmiş branch'i siler
+- git branch -D Backend          ==> Merge edilsin veya edilmesin ZORLA siler
+
+- git branch -m main             ==> Aktif branchin adını değiştirmek
+
+- git branch -a                  ==> Local ve remote branch'leri listeler
+
+- git checkout MicroService      ==> Eski ama hala çok kullanılan branch değiştirme komutudur.
+- git checkout -b  Microservice  ==> Yeni branch oluştur ve o branche dallan
+
+- git switch Backend             ==> Var olan branch'e geçiş yapılır
+- git switch -c Frontend         ==> Yeni branch oluştur ve o branche dallan
+
+
+
+
 
 """
