@@ -39,46 +39,52 @@ public class _1_Solid {
 
 
     S1-) S: Single Responsibility  ?
-    C1-) S:
-     - Anlamı: Bir sınıfın veya modülün yalnızca bir sorumluğu, dolayısıyla tek bir değişim nedeni olamalıdır.
+    C1-) SRP:
+     - Anlamı: Bir sınıfın veya modülün yalnızca bir sorumluğu, dolayısıyla tek bir değişim nedeni olmalıdır.
      - Amacı : Bakımı kolylaştırmak, yan etkileri azlatmak ve test kapsamını küçültmek
      - Örneği: OrderService sadece sipariş kurallını yöneten: NotificationService
      - İhlal belirtisi: Aynı sınıfta valdiation, veri tabanı kaydı, loglama , eposta gönderimi
+     - Ne zaman kullanır : Sınıf büyüdükçe veya çok fazla değişim nedeni olduğunda
 
 
     S1-) O: Open/Closed  ?
-    C1-)
+    C1-) OCP
      - Anlamı: Sistem bileşeni genişlemeye açık, mevcut çalışan kodu değiştirmeye kapalı olmalıdır.
      - Amacı : Yeni davranıi eklerken stabil kodu bozmadan çalıştırmak
      - Örneği: PaymentProcessor arayüzü vardır, CreditCardPayment, TransferPayment yeni bir sınıf eklemek
      - İhlal belirtisi: Her yeni ödeme tipinde if-else veya switch yeni case ekleniyorsa OCP zayıftır
+     - Ne zaman kullanır : Yeni kursal ve yeni tipler sık ekleniyorsa
 
 
 
     S1-) L: Liskov Substitution  ?
-    C1-)
+    C1-) LSP
      - Anlamı: Alt sınıf, üst sınıfın beklentilerini bozmadan onun yerine kullanabilmesidir
      - Amacı : Kalıtımın güvenli ve davranışsal oalrak tutarlılığı ve kullanılmasını sağlamak
      - Örneği:
-     - İhlal belirtisi
+     - İhlal belirtisi:
+     - Ne zaman kullanır : Inheritance kurulduğunda hemen düşünülmelidir
 
 
 
     S1-) I: Interface Segregation?
-    C1-)
+    C1-) ISP
+    - Özellikle Rol bazlı arayüz tasarımında çok net görürüz.
      - Anlamı: İstemciler kullamadıkları metodlara bağımlı bırakılmamalıdır.
      - Amacı : Gereksiz bağımlılıkları ve boş implementasyonları azaltmak
      - Örneği: PRinter, Scanenr, fax ayrı ayrı arayüzlerde kullanmak
      - İhlal belirtisi: deploy(), code(), eat()
+     - Ne zaman kullanır :Bazı implementasyonları boş metod bırakıyorsa
 
 
 
     S1-) D: Dependency Inversion ?
-    C1-)
+    C1-) DIP
+    - Spring'in dependency injection mekanizması DIP'ii çok destekler
      - Anlamı: ÜSt seviye modüller alt seviye modüüleri değil, her ikisini de soyutlamalara bağlı olmaldır.
      - Amacı : Bağımlılıkalr gevşektir ve test edilebilir
      - Örneği:
-     - İhlal belirtisi
+     - İhlal belirtisi: Test edilebilirlik ve değiştirebilirlik
 
 
 
