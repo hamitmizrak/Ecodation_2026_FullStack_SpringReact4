@@ -158,10 +158,10 @@ C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git log
 - git log --decorate --oneline --graph --all
 
--
--
--
--
+- git log
+- git show 5a2227030
+- git diff          ==> Stage edilmemiş(-) değişiklileri gösterir.
+- git diff --staged ==> Stage edilmiş(+) henüz commit edilmemiş()-
 -
 -
 -
