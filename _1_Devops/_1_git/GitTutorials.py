@@ -164,7 +164,8 @@ C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git diff          ==> Stage edilmemiş(-) değişiklileri gösterir.
 - git diff --staged ==> Stage edilmiş(+) henüz commit edilmemiş()-
 -
--
+- git blame _1_Devops//_1_git/GitTutorials.py ==> Dosyanın satıurlarını en son hangi commit ve kişi bilgisini gösterir
+
 -
 -
 -
