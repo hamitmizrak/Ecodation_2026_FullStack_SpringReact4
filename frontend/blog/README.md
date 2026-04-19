@@ -15,7 +15,7 @@
 
 Spring Boot And React JS
 
-- git clone https://github.com/hamitmizrak/Techcareer_2025_11_24_ReactJs_Blog
+- git clone https://github.com/hamitmizrak/Ecodation_2026_FullStack_SpringReact4.git
 
 ---
 
@@ -45,7 +45,6 @@ Spring Boot And React JS
 - JAVA CORE
 - SPRING FRAMEWORK
 - SPRING BOOT
-
 ---
 
 ## Backend - Libraries && Programming
@@ -68,13 +67,12 @@ Spring Boot And React JS
 ---
 
 ## Google Chrome React Web for Developer
-
 1- Google React JS Developer : https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
 
 ## 2- Google React Redux Developer : https://chromewebstore.google.com/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
 
-## Fira Code
 
+## Fira Code
 1- Google Font: https://fonts.google.com/specimen/Fira+Code?subset=greek&preview.text=%C4%9F%C3%BC%C5%9F%C3%A7i&preview.text_type=custom
 
 2- Settings
@@ -85,6 +83,18 @@ Font Family: Fira Code
 "editor.fontLigatures": true,
 
 ---
+
+
+
+## Kurulu Olması Gerekenler
+
+- VS Code
+- Intellij Idea Ultimate
+- Git
+- Nodejs
+- Mysql, Postgresql
+---
+
 
 ## REACTJS INSTALL
 
@@ -300,7 +310,7 @@ for project , plugins
 for project , Port
 
 | NAME       | PORT                                                  |
-| ---------- | ----------------------------------------------------- |
+| ---------- |-------------------------------------------------------|
 | React JS   | [React][http://localhost:3000]                        |
 | SPRING     | [Spring][http://localhost:4444]                       |
 | H2-CONSOLE | [H2][http://localhost:4444/h2-console]                |

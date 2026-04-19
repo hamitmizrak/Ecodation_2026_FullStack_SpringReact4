@@ -41,7 +41,7 @@ function pick(obj, ...keys) {
   return undefined;
 }
 function normalizeBackendError(be) {
-  if (!be) return { general: 'İşlem başarısız Mail Aktifleştirme', fields: {} };
+  if (!be) return { general: 'Lütfen mailinize gelen linke tıklayarak Üyeliğinizi aktifleştirin aksi takdir de sisteme giremezsiniz', fields: {} };
 
   const general =
     pick(be, 'message', 'error', 'errorMessage', 'detail', 'description') ||

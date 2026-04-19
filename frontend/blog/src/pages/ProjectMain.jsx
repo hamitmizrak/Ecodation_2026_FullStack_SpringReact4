@@ -469,17 +469,9 @@ const excerpt = (text = '', max = 1200) => {
           >
             Blog
           </h3>
-          <p className="display-6 text-center">Yeni Blog</p>
+          <p className="display-6 text-center mb-5">Yeni Blog</p>
           {/* ================== BLOG ================== */}
-          {/* Üst başlık/filtre bar (isteğe bağlı) */}
-          <h3
-            id="scroll_spy_blog"
-            className="customize_heading wow animate__animated animate__zoomIn"
-            data-wow-delay="1s"
-          >
-            Blog
-          </h3>
-          <p className="display-6 text-center">Yeni Blog</p>
+        {/*  <p className="display-6 text-center">Yeni Blog</p>*/}
 
           <section id="blog" className="wow fadeIn">
             <div className="container">
