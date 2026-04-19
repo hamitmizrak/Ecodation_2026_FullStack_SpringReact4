@@ -48,11 +48,14 @@ C-6)  Git;
 - Dağıtık yapıya sahiptir.
 - Daha esnektir
 
-S-7) HEAD nedir ?
-C-7) Head;
-- Aktif brach veya doğrudan seçili commit'i gösteren referanstır.
+S-7) HEAD, Repository, Working Tree, Staging Area nedir ?
+C-7)
+- HEAD: Aktif brach veya doğrudan seçili commit'i gösteren referanstır.
 - Örneğin: git reflog
 
+- Repository: Versiyonların geçmişininin tutulduğu yerdir.
+- Working Tree: Dosyaları fiilen düzenlendiği çalışma alanıdır.
+- Staging Area: Bir sonraki commit'e alınacak değişiklikleri seçildiği yerdir.
 
 S-8) Yanlışlıkla silinen commit'i nasıl bulursunuz ?
 C-8) Önce  `git reflog` reflog ile HEAD hareketine bakarım
@@ -135,12 +138,84 @@ C-18)
 
 S-18) Git komutlarını açıklayınız ?
 C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
+- git config --global user.name "Hamit Mızrak"
+- git config --global user.name
+- git config --global user.email "hamitmizrak@gmail.com"
+- git config --global user.email
+- git config --list
 -
--
--
--
--
+- git init
+- git clone <URL>
+- git status
 
+- git add <DOSYA_ADI>
+- git add .
+- git add -A             ==> Silinen, değişen ve yeni eklenen tüm dosyaları stage eder
+
+- git commit -m "Login validation bug fixed"
+- git commit --amend -m "Mesaj değiştir"  ==> Son commitin mesajını veya içeriğini düzeltmek
+
+- git log
+- git log --decorate --oneline --graph --all
+
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
 
 
 
