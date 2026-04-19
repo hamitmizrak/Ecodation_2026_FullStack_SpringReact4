@@ -90,7 +90,7 @@ public class Ecodation2026FullStackSpringReact4Application {
         /*
         SpringApplication app = new SpringApplication(ThySpringbootRedisApplication.class);
         app.setDefaultProperties(Collections
-                .singletonMap("server.port", "9999"));
+                .singletonMap("server.port", "4444"));
         app.run(args);
          */
 

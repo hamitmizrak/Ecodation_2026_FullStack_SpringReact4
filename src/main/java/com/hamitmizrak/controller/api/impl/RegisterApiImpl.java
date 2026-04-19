@@ -28,7 +28,7 @@ import java.util.Optional;
 @Log4j2
 @RestController
 @RequestMapping("/register/api/v1.0.0")
-@CrossOrigin(origins = {"http://localhost:3001", "http://localhost:4200"}) // Frontend portları
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200"}) // Frontend portları
 public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
 
     // Injection
@@ -60,7 +60,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     // REGISTER CRUD
     // İster resimli ister resimsiz yani opsiyonel
     // CREATE Register(Api) - Role
-    // http://localhost:9999/register/api/v1.0.0/create/1
+    // http://localhost:4444/register/api/v1.0.0/create/1
     @PostMapping("/create/{roles_id}")
     @Override
     public ResponseEntity<ApiResult<?>> objectApiCreate(
@@ -81,7 +81,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     }
 
     // Image
-    // http://localhost:9999/register/api/v1.0.0/create/1
+    // http://localhost:4444/register/api/v1.0.0/create/1
     @Override
     @PostMapping(value = "/create/{roles_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResult<?>> objectApiCreate(
@@ -104,7 +104,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     }
 
     // LIST Register(Api)
-    // http://localhost:9999/register/api/v1.0.0/list
+    // http://localhost:4444/register/api/v1.0.0/list
     @GetMapping("/list")
     @Override
     public ResponseEntity<ApiResult<List<RegisterDto>>> objectApiList() {
@@ -117,9 +117,9 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     }
 
     // FIND Register(Api)
-    // http://localhost:9999/register/api/v1.0.0/find
-    // http://localhost:9999/register/api/v1.0.0/find/0
-    // http://localhost:9999/register/api/v1.0.0/find/1
+    // http://localhost:4444/register/api/v1.0.0/find
+    // http://localhost:4444/register/api/v1.0.0/find/0
+    // http://localhost:4444/register/api/v1.0.0/find/1
     @GetMapping({"/find","/find/{id}"})
     @Override
     public ResponseEntity<ApiResult<?>> objectApiFindById(@PathVariable(name="id",required = false) Long id) {
@@ -140,9 +140,9 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     }
 
     // UPDATE Register(Api)
-    // http://localhost:9999/register/api/v1.0.0/update
-    // http://localhost:9999/register/api/v1.0.0/update/0
-    // http://localhost:9999/register/api/v1.0.0/update/1
+    // http://localhost:4444/register/api/v1.0.0/update
+    // http://localhost:4444/register/api/v1.0.0/update/0
+    // http://localhost:4444/register/api/v1.0.0/update/1
     @PutMapping({"/update","/update/{id}"})
     @Override
     public ResponseEntity<ApiResult<?>> objectApiUpdate(
@@ -157,7 +157,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     }
 
     // Image
-    // http://localhost:9999/register/api/v1.0.0/update/1
+    // http://localhost:4444/register/api/v1.0.0/update/1
     @PutMapping(
             value = {"/update", "/update/{id}"},
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -206,9 +206,9 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
 
 
     // DELETE Register(Api)
-    // http://localhost:9999/register/api/v1.0.0/delete
-    // http://localhost:9999/register/api/v1.0.0/delete/0
-    // http://localhost:9999/register/api/v1.0.0/delete/1
+    // http://localhost:4444/register/api/v1.0.0/delete
+    // http://localhost:4444/register/api/v1.0.0/delete/0
+    // http://localhost:4444/register/api/v1.0.0/delete/1
     @DeleteMapping({"/delete","/delete/{id}"})
     @Override
     public ResponseEntity<ApiResult<?>> objectApiDelete(@PathVariable(name="id", required = false) Long id) {
@@ -230,7 +230,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // EMAIL CONFIRMATION
-    //http://localhost:9999/register/api/v1/confirm?token=ca478481-5f7a-406b-aaa4-2012ebe1afb4
+    //http://localhost:4444/register/api/v1/confirm?token=ca478481-5f7a-406b-aaa4-2012ebe1afb4
     @GetMapping("/confirm")
     public ResponseEntity<String> emailTokenConfirmation(@RequestParam("token") String token) {
         Optional<ForRegisterTokenEmailConfirmationEntity> tokenConfirmationEntity = registerServicesImpl.findTokenConfirmation(token);
@@ -246,7 +246,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
                 "  </style>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "    <p style='padding:4rem;'>Üyeliğiniz Aktif olunmuştur.  <a href='http://localhost:3001'>Ana sayfa için tıklayınız </a></p>\n" +
+                "    <p style='padding:4rem;'>Üyeliğiniz Aktif olunmuştur.  <a href='http://localhost:3000'>Ana sayfa için tıklayınız </a></p>\n" +
                 "</body>\n" +
                 "</html>";
         return ResponseEntity.ok(html);

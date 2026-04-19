@@ -61,5 +61,5 @@ public class EmailEntity extends BaseEntity implements Serializable {
 
     // URL
     @Column(name = "url")
-    private String URL="http://localhost:9999/";
+    private String URL="http://localhost:4444/";
 } // end class EmailEntity

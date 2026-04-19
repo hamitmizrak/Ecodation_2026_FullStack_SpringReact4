@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/email/api/v1.0.0")
 @CrossOrigin //CORS: Hatası
 //@CrossOrigin(origins = ProjectUrl.REACT_FRONTEND_PORT_URL)
-//@CrossOrigin(origins = "localhost:3001")
+//@CrossOrigin(origins = "localhost:3000")
 public class EmailApiImpl implements IEmailApi<EmailDto> {
 
     // Injection
@@ -26,7 +26,7 @@ public class EmailApiImpl implements IEmailApi<EmailDto> {
 
 
     // SEND BASIC Email(Api)
-    // http://localhost:9999/email/api/v1.0.0/basic/email
+    // http://localhost:4444/email/api/v1.0.0/basic/email
     @PostMapping("/basic/email")
     @Override
     public ResponseEntity<?> basicSendEmail(@Valid @RequestBody EmailDto emailDto) {
@@ -34,7 +34,7 @@ public class EmailApiImpl implements IEmailApi<EmailDto> {
     }
 
     // SEND INTERMEDIA Email(Api)
-    // http://localhost:9999/email/api/v1.0.0/attachment/email
+    // http://localhost:4444/email/api/v1.0.0/attachment/email
     @PostMapping("/attachment/email")
     @Override
     public ResponseEntity<?> intermediaSendEmail(@Valid @RequestBody EmailDto emailDto) {

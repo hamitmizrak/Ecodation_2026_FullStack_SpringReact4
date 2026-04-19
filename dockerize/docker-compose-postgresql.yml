@@ -23,7 +23,7 @@ services:
     restart: always
     build: ..
     ports:
-      - "9999:9999"
+      - "4444:4444"
     networks:
       - blog_default
     depends_on:

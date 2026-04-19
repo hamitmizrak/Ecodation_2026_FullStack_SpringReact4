@@ -7,7 +7,7 @@ LABEL maintainer="hamitmizrak@gmail.com"
 # Çevresel değişkeni tanımla ve değer atama
 ENV APP_NAME="Backend Project"
 ENV APP_VERSION="1.0"
-ENV PORT="9999"
+ENV PORT="4444"
 
 # Print environment variables
 RUN echo "App name: $APP_NAME"
@@ -34,7 +34,7 @@ HEALTHCHECK --interval=30s --timeout=3s \
   CMD wget --quiet --tries=1 --spider http://localhost || exit 1
 
 # Port
-EXPOSE 9999
+EXPOSE 4444
 
 # Değişken
 ARG JAR_FILE=/target/*.jar

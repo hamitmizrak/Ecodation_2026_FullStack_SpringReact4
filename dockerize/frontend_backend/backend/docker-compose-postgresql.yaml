@@ -9,7 +9,7 @@ services:
     image: daily
     build: ./
     ports:
-      - "5555:9999"
+      - "4444:4444"
     networks:
       - blog_default
     depends_on:

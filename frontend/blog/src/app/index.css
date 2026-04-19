@@ -507,7 +507,7 @@ i:hover {
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  z-index: 9999;
+  z-index: 4444;
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
@@ -901,7 +901,7 @@ footer {
   transform: scale(0.5);
   /* Animasyon başta görünmez, sonradan büyür ve görünür */
   animation: backtop-appear 1.1s cubic-bezier(.28,1.5,.52,0.92) 0.8s forwards;
-  z-index: 9999;
+  z-index: 4444;
   transition:
     box-shadow 0.4s,
     background 0.3s,

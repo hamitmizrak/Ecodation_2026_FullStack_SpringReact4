@@ -33,7 +33,7 @@ public class WebConfig implements WebMvcConfigurer {
     }*/
 
 
-    // http://localhost:9999/upload
+    // http://localhost:4444/upload
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         Path uploadRoot = fileProps.getUploadRoot();
@@ -50,7 +50,7 @@ public class WebConfig implements WebMvcConfigurer {
         corsRegistry
                 .addMapping("/**") //Tüm pointeler için CORS geçerli olsun
                 //.allowedOrigins("*") // Bütün Kaynaklara izin ver
-                .allowedOrigins("http://localhost:3001") // Sadece Belirli Kaynaklara izin ver
+                .allowedOrigins("http://localhost:3000") // Sadece Belirli Kaynaklara izin ver
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // İzin verilen Http Metotları
                 .allowedHeaders("*") //  izin verilen başlılar => Tüm başlıkları kabul et,
                 .allowCredentials(true); // Kimlik doğrulama bilgilerinde izin ver(Cookie, header, authorization vs)
@@ -93,7 +93,7 @@ public class WebConfig implements WebMvcConfigurer {
     //////////////////////////////////////////////////////////////////////////////////
     // Interceptor
     // Dili değiştirmek için LocaleChangeInterceptor eklenir
-    // http://localhost:9999?lang=ge
+    // http://localhost:4444?lang=ge
      /*
     Açıklamalar:
     CookieLocaleResolver: Kullanıcının seçtiği dili bir cookie'de saklar. Bu sayede kullanıcı uygulamaya tekrar girdiğinde aynı dili kullanabilir.

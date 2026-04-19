@@ -20,14 +20,14 @@ import java.util.List;
 @Log4j2
 // @CrossOrigin //CORS: Hatası
 //@CrossOrigin(origins = ProjectUrl.REACT_FRONTEND_PORT_URL)
-//@CrossOrigin(origins = "localhost:3001")
+//@CrossOrigin(origins = "localhost:3000")
 public class RoleApiImpl implements IRoleApi<RoleDto> {
 
     // Injection
     private final IRoleService iRoleService;
 
     // Sadece ADMIN yeni rol oluşturabilsin
-    // http://localhost:9999/role/api/v1.0.0/create
+    // http://localhost:4444/role/api/v1.0.0/create
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     @Override

@@ -57,6 +57,6 @@ public class EmailDto extends BaseDto implements Serializable {
 
     // URL
     @Builder.Default
-    private String URL="http://localhost:9999/";
+    private String URL="http://localhost:4444/";
 
 } //end Email
