@@ -1,8 +1,8 @@
 package com.hamitmizrak.token_mail.api;
 
+import com.hamitmizrak.token_mail.dto.EmailDto;
 import com.hamitmizrak.business.services.interfaces.IEmailServices;
 import com.hamitmizrak.controller.api.interfaces.IEmailApi;
-import com.hamitmizrak.token_mail.dto.EmailDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

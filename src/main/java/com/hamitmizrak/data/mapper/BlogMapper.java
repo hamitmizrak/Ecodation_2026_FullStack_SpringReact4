@@ -14,7 +14,6 @@ public class BlogMapper {
                 .header(e.getHeader())
                 .title(e.getTitle())
                 .content(e.getContent())
-                .url(e.getUrl())
                 .image(e.getImage())
                 .systemCreatedDate(e.getSystemCreatedDate())
                 .blogCategoryDto(BlogCategoryMapper.toDto(e.getBlogCategoryBlogEntity()))
@@ -28,7 +27,6 @@ public class BlogMapper {
                 .header(d.getHeader())
                 .title(d.getTitle())
                 .content(d.getContent())
-                .url(d.getUrl())
                 .image(d.getImage())
                 .build();
     }

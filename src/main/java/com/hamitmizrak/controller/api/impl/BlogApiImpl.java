@@ -18,17 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-
-/*
-  BLOG: {
-    LIST:   '/blog/api/v1.0.0/list',
-    CREATE: '/blog/api/v1.0.0/create',               // <<< düz string (path’te categoryId yok)
-    FIND:   (id) => `/blog/api/v1.0.0/find/${id}`,
-    UPDATE: (id) => `/blog/api/v1.0.0/update/${id}`,  // <<< düz id (path’te categoryId yok)
-    DELETE: (id) => `/blog/api/v1.0.0/delete/${id}`,
-  },
- */
-
 @RequiredArgsConstructor
 @Log4j2
 @RestController

@@ -1,7 +1,9 @@
 package com.hamitmizrak.business.services.interfaces;
 
+import com.hamitmizrak.business.dto.BlogDto;
 import com.hamitmizrak.business.services.ICrudService;
 import com.hamitmizrak.business.services.IModelMapperService;
+import org.springframework.transaction.annotation.Transactional;
 
 // D: Dto
 // E: Entity

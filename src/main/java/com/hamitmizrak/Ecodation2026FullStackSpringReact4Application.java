@@ -1,12 +1,10 @@
 package com.hamitmizrak;
 
-import com.hamitmizrak.security.jwt.JwtProps;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.util.TimeZone;
@@ -28,7 +26,7 @@ import java.util.TimeZone;
 @EnableJpaAuditing(auditorAwareRef = "auditingAwareBeanMethod")
 
 // Configuration Properties taramasını aç
-//@ConfigurationPropertiesScan(basePackageClasses = com.hamitmizrak.security.jwt.JwtProps.class)
+@ConfigurationPropertiesScan(basePackageClasses = com.hamitmizrak.security.jwt.JwtProps.class)
 // Spring Security: Şimdilik dahil etme, çünkü Bcrypted kullancağım ancak Spring security için gerekli kütüphaneleri dahil
 // Buradaki exclude ne zaman kapatmam gerekiyor ? cevap: Spring Security ile çalıştığımız zaman kapat
 
@@ -49,17 +47,10 @@ import java.util.TimeZone;
 
         // REDIS
         // Eğer Redis bağımlılığını kaldırmak istemiyorsanız ancak Redis yapılandırmasını devre dışı bırakmak istiyorsanız
-        //RedisAutoConfiguration.class,
+        RedisAutoConfiguration.class,
 }
 )*/
-@EnableConfigurationProperties(JwtProps.class)
-@SpringBootApplication(
-        exclude = {
-                org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class,
-                org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration.class,
-                org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration.class
-        }
-)
+@SpringBootApplication(exclude = { RedisAutoConfiguration.class })
 public class Ecodation2026FullStackSpringReact4Application {
 
     // Normal Constructor
@@ -80,7 +71,7 @@ public class Ecodation2026FullStackSpringReact4Application {
         TimeZone.setDefault(TimeZone.getTimeZone("IST"));
     }
 
-
+    // PSVM
     public static void main(String[] args) {
 
         // devtools active isActive
@@ -100,5 +91,4 @@ public class Ecodation2026FullStackSpringReact4Application {
         // Main
         SpringApplication.run(Ecodation2026FullStackSpringReact4Application.class, args);
     }
-
-}
+} //end @SpringBootApplication

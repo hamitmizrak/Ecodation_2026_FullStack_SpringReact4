@@ -2,12 +2,12 @@ package com.hamitmizrak.runner;
 
 import com.hamitmizrak.business.dto.RegisterDto;
 import com.hamitmizrak.business.dto.RoleDto;
-import com.hamitmizrak.business.role.ERole;
 import com.hamitmizrak.business.services.interfaces.IRegisterServices;
 import com.hamitmizrak.business.services.interfaces.IRoleService;
 import com.hamitmizrak.data.entity.RoleEntity;
 import com.hamitmizrak.data.repository.IRegisterRepository;
 import com.hamitmizrak.data.repository.IRoleRepository;
+import com.hamitmizrak.business.role.ERole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;

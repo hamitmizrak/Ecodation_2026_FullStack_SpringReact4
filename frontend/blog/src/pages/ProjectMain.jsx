@@ -32,8 +32,8 @@ const resolveImageUrl = (src) =>
   !src
     ? ''
     : /^https?:\/\//i.test(src)
-      ? src
-      : `${IMAGE_BASE}${src.startsWith('/') ? src : '/' + src}`;
+    ? src
+    : `${IMAGE_BASE}${src.startsWith('/') ? src : '/' + src}`;
 
 const fmtDate = (iso) =>
   !iso
@@ -47,13 +47,11 @@ const fmtDate = (iso) =>
 
 const excerpt = (text = '', max = 1200) => {
   // line-clamp6 ile görsel kısaltma CSS’te yapılacak, yine de güvenlik için JS tarafında da limitle
-  const t = String(text || '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
   return t.length <= max ? t : t.slice(0, max - 1) + '…';
 };
 
-function ProjectMain() {
+ function ProjectMain() {
   // ====== ABOUT ======
   const [about, setAbout] = useState(null);
   const [aboutLoading, setAboutLoading] = useState(false);

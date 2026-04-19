@@ -3,11 +3,9 @@ package com.hamitmizrak.security.error;
 
 import com.hamitmizrak.error.ApiResult;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 
 @RestControllerAdvice
 public class AuthExceptionHandler {
