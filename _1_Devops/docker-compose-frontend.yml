@@ -18,8 +18,8 @@ services:
     image: image_blog_react
     build:
       #context: .
-      context: ./frontend/blog
-      dockerfile: DockerfileFrontend
+      context: ../frontend/blog
+      dockerfile: ../frontend/blog/DockerfileFrontend
     ports:
       - "3000:3000"
     volumes:

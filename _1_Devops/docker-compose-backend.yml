@@ -20,7 +20,7 @@ services:
     restart: on-failure # unless-stopped
     #build: ./  # default Dockefile
     build:
-      context: .
+      context: ..
       dockerfile: DockerfileBackend
     ports:
       - "4444:4444"
