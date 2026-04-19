@@ -153,6 +153,7 @@ C-18) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git add -A             ==> Silinen, değişen ve yeni eklenen tüm dosyaları stage eder
 
 - git commit -m "Login validation bug fixed"
+- git commit -am "Dosya eklemeden add ve message"
 - git commit --amend -m "Mesaj değiştir"  ==> Son commitin mesajını veya içeriğini düzeltmek
 
 - git log
