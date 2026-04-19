@@ -32,11 +32,43 @@ C-1)
 - Tutarlılık ve standartlar korunmalı
 - Hataları anlamlarının ve çözüm gösteren mesajlar sunmalı
 - Yardım ve dokümanları gerekirse ulaşılabilir olmalı
--
--
+
+ S5-) Responsive Design Nedir ?
+ C5-) RD ( Responsive design,):
+ - Arayüzün farklı ekran boyutlarında kullanılabilirliğini,
+ - Okunabilir ve etkileşimlik kalmasını sağlar.
+ -
+
+
+ S6-) Mobile-first Yaklaşımı Nedir ?
+ C6-) Önce küçük ekran ve temel akış tasarlanır sonra geniş ekranlar zenginleştirilir.
+ - Breakpoints
+ -
+ -
+
+
+ S7-) Touch Target Nedir ?
+ C7-)-Touch Target: Mobilde tıklanabilir alanlar yeterince büyük olmalıdır
+ -
+
+ S8-) Form Tasarlarken nelere dikkat etmek gerekir ?
+ C8-) Form;
+ - Sadece placeholder kullanmak zayıflıktır
+ - Label her zaman görünür olmalıdır
+ - Zorunlu alanlar açık işaretlenmelidir.
+ - Anlık doğrulama ve submit sonrası doğrulama dengeli olmalıdır.
+ -
+ -
 
 
 
-
+ S9-)
+ C9-)
+ -
+ -
+ -
+ -
+ -
+ -
 
 """
