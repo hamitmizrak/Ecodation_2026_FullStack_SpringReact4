@@ -251,4 +251,12 @@ examples: git rm --cached .env
 - git push origin v1.0.0 ==> Belirli tag'ı uzak repository göndermek
 - git push origin --tags ==> Tüm  tag'leri  uzak repository göndermek
 
+
+- git restore --staged <DOSYA>  ==> Stage'e alınmış (git add) dosyayı stage'ten çıkarır
+- git restore          <DOSYA>  ==> Dosyada commit edilmemiş değişiklikleri geri alır
+
+- git reset --soft  HEAD~1  ==> Son commit'i geri alır ama değişiklikleri staged bırakır
+- git reset --mixed HEAD~1  ==> Son commit'i geri alır ama değişiklikleri staged dışına çıkarır (DEFAULT)
+- git reset --hard  HEAD~1  ==> Son commit'i geri alır ve tüm değişiklikleri siler (TEHLIKELIDIR)
+
 """
