@@ -394,8 +394,615 @@ function Blog() {
 
 
     return <>
-    <div className="container py-4"></div>
-    </>;
+        <div className="container py-4">
+            {/*Bloglar*/}
+            <div className="d-flex align-items-center justify-content-between mb-3">
+                <h2 className="mb-0">Bloglar</h2>
+                <div className="d-flex gap-2">
+                    <input
+                        placeholder="Ara (ID / Header / Başlık / Kategori)"
+                        className="form-control"
+                        style={{minWidth: 280}}
+                        value={query}
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                            setPage(1);
+                        }}
+                    />
+                    <button className="btn btn-primary" onClick={openCreate}>
+                        Yeni Blog
+                    </button>
+                </div>
+            </div>
+
+            {/*Table*/}
+            <div className="table-responsive">
+                <table className="table table-striped table-bordered align-middle">
+                    {/*thead*/}
+                    <thead>
+                    <tr>
+                        <th style={{width: 90}}>
+                            ID <SortBtn k="blogId"/>
+                        </th>
+                        <th>
+                            Header <SortBtn k="header"/>
+                        </th>
+                        <th>
+                            Başlık <SortBtn k="title"/>
+                        </th>
+                        <th>
+                            İçerik <SortBtn k="content"/>
+                        </th>
+                        <th>
+                            Kategori <SortBtn k="categoryName"/>
+                        </th>
+                        <th style={{width: 140}}>Görsel</th>
+                        <th style={{width: 220}}>
+                            Oluşturma <SortBtn k="systemCreatedDate"/>
+                        </th>
+                        <th style={{width: 160}}>İşlemler</th>
+                    </tr>
+                    </thead>
+
+                    {/*tbody*/}
+                    <tbody>
+                    {loading ? (
+                        <tr>
+                            <td colSpan={7} className="text-center">
+                                <span className="spinner-border spinner-border-sm me-2"/>
+                                Yükleniyor...
+                            </td>
+                        </tr>
+                    ) : paged.length === 0 ? (
+                        <tr>
+                            <td colSpan={7} className="text-center text-muted">
+                                Kayıt yok.
+                            </td>
+                        </tr>
+                    ) : (
+                        paged.map((row) => (
+                            <tr key={row.blogId ?? row.id}>
+                                <td>{row.blogId ?? row.id}</td>
+                                <td className="text-truncate" style={{maxWidth: 240}} title={row.header}>
+                                    {row.header}
+                                </td>
+                                <td className="text-truncate" style={{maxWidth: 260}} title={row.title}>
+                                    {row.title}
+                                </td>
+                                <td className="text-truncate" style={{maxWidth: 260}} title={row.content}>
+                                    {row.content}
+                                </td>
+                                <td>{row.blogCategoryDto?.categoryName ?? '-'}</td>
+                                <td>
+                                    {row.image ? (
+                                        <img
+                                            src={resolveImageUrl(row.image)}
+                                            alt={row.title || 'image'}
+                                            style={{
+                                                maxWidth: 120,
+                                                maxHeight: 80,
+                                                objectFit: 'contain',
+                                                borderRadius: 6,
+                                                boxShadow: '0 1px 8px rgba(0,0,0,0.06)',
+                                            }}
+                                        />
+                                    ) : (
+                                        <span className="text-muted small">—</span>
+                                    )}
+                                </td>
+                                <td>{fmtDate(row.systemCreatedDate)}</td>
+                                <td>
+                                    <div className="btn-group btn-group-sm">
+                                        <button
+                                            className="btn btn-outline-secondary"
+                                            title="Detay"
+                                            onClick={() => openView(row)}
+                                        >
+                                            <i className="fa fa-eye"/>
+                                        </button>
+                                        <button
+                                            className="btn btn-outline-primary"
+                                            title="Düzenle"
+                                            onClick={() => openEdit(row)}
+                                        >
+                                            <i className="fa fa-pen"/>
+                                        </button>
+                                        <button
+                                            className="btn btn-outline-danger"
+                                            title="Sil"
+                                            onClick={() => openDelete(row)}
+                                        >
+                                            <i className="fa fa-trash"/>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    )}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Pagination */}
+            <div className="d-flex justify-content-between align-items-center mt-2">
+                <div>
+                    Toplam <b>{total}</b> kayıt, Sayfa <b>{currentPage}</b> / <b>{pageCount}</b>
+                </div>
+                <div className="d-flex align-items-center gap-2">
+                    <select
+                        className="form-select"
+                        value={pageSize}
+                        onChange={(e) => {
+                            setPageSize(parseInt(e.target.value || '10', 10));
+                            setPage(1);
+                        }}
+                        style={{width: 90}}
+                    >
+                        {[3,5, 10, 20, 50, 100].map((n) => (
+                            <option key={n} value={n}>
+                                {n}/sayfa
+                            </option>
+                        ))}
+                    </select>
+                    <div className="btn-group">
+                        <button
+                            className="btn btn-outline-secondary"
+                            disabled={currentPage <= 1}
+                            onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        >
+                            ‹
+                        </button>
+                        <button
+                            className="btn btn-outline-secondary"
+                            disabled={currentPage >= pageCount}
+                            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+                        >
+                            ›
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            {/*CREATE MODAL*/}
+            {showCreate && (
+                <div
+                    className="modal fade show d-block"
+                    role="dialog"
+                    style={{zIndex: 1050}}
+                    onClick={closeCreate}
+                    tabIndex={-1}
+                >
+                    <div className="modal-dialog modal-lg" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-content">
+                            <form onSubmit={submitCreate}>
+
+                                {/*MODAL HEADER*/}
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Blog Ekle</h5>
+                                    <button type="button" className="btn-close" onClick={closeCreate}></button>
+                                </div>
+
+                                {/*MODAL BODY*/}
+                                <div className="modal-body">
+                                    <div className="row g-3">
+
+                                        {/*HEADER*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="header" className="form-label">Başlık</label>
+                                            <input
+                                                type="text"
+                                                id="header"
+                                                name="header"
+                                                onChange={onChange}
+                                                required
+                                                class={`form-control ${formError.header ? 'is-invalid':''}`}
+                                            />
+                                            {formError.header && (
+                                                <div className="invalid-feedback">{formError.header}</div>
+                                            )}
+                                        </div>
+
+                                        {/*TITLE*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="title" className="form-label">Alt Başlık</label>
+                                            <input
+                                                type="text"
+                                                id="title"
+                                                name="title"
+                                                onChange={onChange}
+                                                required
+                                                class={`form-control ${formError.title ? 'is-invalid':''}`}
+                                            />
+                                            {formError.title && (
+                                                <div className="invalid-feedback">{formError.title}</div>
+                                            )}
+                                        </div>
+
+                                        {/*CONTENT*/}
+                                        <div className="col-md-12">
+                                            <label htmlFor="content" className="form-label">İçerik</label>
+                                            <textarea
+                                                rows={8}
+                                                name="content"
+                                                value={form.content}
+                                                required
+                                                onChange={onChange}
+                                                clssName={`form-control ${formError.content ? 'is-invalid' : ''}`}>
+                                               </textarea>
+                                            {formError.content && (
+                                                <div className="invalid-feedback">{formError.content}</div>
+                                            )}
+                                        </div>
+
+                                        {/*IMAGE (URL)*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="url" className="form-label">Resim URL</label>
+                                            <input
+                                                name="url"
+                                                className="form-control"
+                                                value={form.url}
+                                                onChange={onChange}
+                                                placeholder="örn. /upload/blog/ai.png veya https://"
+                                            />
+                                            <div className="form-text">Dosya Seçerken bu alan isteğe bağlıdır</div>
+                                        </div>
+
+                                        {/*IMAGE (Görsel Alanı)*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="blog-image-file" className="form-label">Resim
+                                                Ekle</label>
+                                            <input
+                                                type="file"
+                                                name="image"
+                                                id="blog-image-file"
+                                                accept="image/*"
+                                                className="form-control"
+                                                onChange={onFileChange}
+                                            />
+                                            {filePreview && (
+                                                <div className="mt-2 mb-2 d-flex align-items-center gap-2">
+                                                    <img
+                                                        src={filePreview}
+                                                        alt="preview"
+                                                        style={{maxHeight: 64, borderRadius: 6}}
+                                                    />
+                                                    <button type="button" className="btn btn-sm btn-outline-primary"
+                                                            onClick={clearFile}>Dosyayı Temizle
+                                                    </button>
+                                                </div>
+                                            )}
+                                        < /div>
+
+                                        {/*BLOG-KATEGORI*/}
+                                        <div className="col-md-12">
+                                            <label htmlFor="categoryId" className="form-label">Kategori</label>
+                                            <select
+                                                name="categoryId"
+                                                className={`form-select  ${formError.categoryId ? 'is-invalid' : ''}`}
+                                                value={form.categoryId}
+                                                onChange={onChange}
+                                                required
+                                            >
+                                                <option value="">Seçiniz...</option>
+                                                {
+                                                    cats.map((temp) => (
+                                                        <option
+                                                            key={temp.categoryId ?? temp.id}
+                                                            value={temp.categoryId ?? temp.id}
+                                                        >
+                                                            {temp.categoryName}
+                                                        </option>
+                                                    ))
+                                                }
+                                            </select>
+                                            {formError.categoryId && (
+                                                <div className="invalid-feedback">{formError.categoryId}</div>
+                                            )}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                {/*MODAL FOOTER*/}
+                                <div className="modal-footer">
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        onClick={closeCreate}>Kapat
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary">Kaydet
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}{/* End Create Modal */}
+
+
+
+            {/*EDIT MODAL*/}
+            {showEdit && (
+                <div
+                    className="modal fade show d-block"
+                    role="dialog"
+                    style={{zIndex: 1050}}
+                    onClick={closeEdit}
+                    tabIndex={-1}
+                >
+                    <div className="modal-dialog modal-lg" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-content">
+                            <form onSubmit={submitEdit}>
+
+                                {/*MODAL HEADER*/}
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Blog Güncelle</h5>
+                                    <button type="button" className="btn-close" onClick={closeEdit}></button>
+                                </div>
+
+                                {/*MODAL BODY*/}
+                                <div className="modal-body">
+                                    <div className="row g-3">
+
+                                        {/*HEADER*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="header" className="form-label">Başlık</label>
+                                            <input
+                                                type="text"
+                                                id="header"
+                                                name="header"
+                                                onChange={onChange}
+                                                required
+                                                value={form.header}
+                                                class={`form-control ${formError.header ? 'is-invalid':''}`}
+                                            />
+                                            {formError.header && (
+                                                <div className="invalid-feedback">{formError.header}</div>
+                                            )}
+                                        </div>
+
+                                        {/*TITLE*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="title" className="form-label">Alt Başlık</label>
+                                            <input
+                                                type="text"
+                                                id="title"
+                                                name="title"
+                                                onChange={onChange}
+                                                required
+                                                value={form.title}
+                                                class={`form-control ${formError.title ? 'is-invalid':''}`}
+                                            />
+                                            {formError.title && (
+                                                <div className="invalid-feedback">{formError.title}</div>
+                                            )}
+                                        </div>
+
+                                        {/*CONTENT*/}
+                                        <div className="col-md-12">
+                                            <label htmlFor="content" className="form-label">İçerik</label>
+                                            <textarea
+                                                rows={5}
+                                                name="content"
+                                                value={form.content}
+                                                required
+                                                onChange={onChange}
+                                                clssName={`form-control ${formError.content ? 'is-invalid' : ''}`}>
+                                               </textarea>
+                                            {formError.content && (
+                                                <div className="invalid-feedback">{formError.content}</div>
+                                            )}
+                                        </div>
+
+                                        {/*IMAGE (URL)*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="url" className="form-label">Resim URL</label>
+                                            <input
+                                                name="image"
+                                                className="form-control"
+                                                value={form.image}
+                                                onChange={onChange}
+                                                placeholder="örn. /upload/blog/ai.png veya https://"
+                                            />
+                                            <div className="form-text">Dosya Seçerken bu alan isteğe bağlıdır</div>
+                                        </div>
+
+                                        {/*IMAGE (Görsel Alanı)*/}
+                                        <div className="col-md-6">
+                                            <label htmlFor="blog-image-file" className="form-label">Resim
+                                                Güncelle</label>
+                                            <input
+                                                type="file"
+                                                name="image"
+                                                id="blog-image-file"
+                                                accept="image/*"
+                                                className="form-control"
+                                                onChange={onFileChange}
+                                            />
+                                            {filePreview && (
+                                                <div className="mt-2 mb-2 d-flex align-items-center gap-2">
+                                                    <img
+                                                        src={filePreview}
+                                                        alt="preview"
+                                                        style={{maxHeight: 64, borderRadius: 6}}
+                                                    />
+                                                    <button type="button" className="btn btn-sm btn-outline-primary"
+                                                            onClick={clearFile}>Dosyayı Temizle
+                                                    </button>
+                                                </div>
+                                            )}
+                                        < /div>
+
+                                        {/*BLOG-KATEGORI*/}
+                                        <div className="col-md-12">
+                                            <label htmlFor="categoryId" className="form-label">Kategori</label>
+                                            <select
+                                                name="categoryId"
+                                                className={`form-select  ${formError.categoryId ? 'is-invalid' : ''}`}
+                                                value={form.categoryId}
+                                                onChange={onChange}
+                                                required
+                                            >
+                                                <option value="">Seçiniz...</option>
+                                                {
+                                                    cats.map((temp) => (
+                                                        <option
+                                                            key={temp.categoryId ?? temp.id}
+                                                            value={temp.categoryId ?? temp.id}
+                                                        >
+                                                            {temp.categoryName}
+                                                        </option>
+                                                    ))
+                                                }
+                                            </select>
+                                            {formError.categoryId && (
+                                                <div className="invalid-feedback">{formError.categoryId}</div>
+                                            )}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                {/*MODAL FOOTER*/}
+                                <div className="modal-footer">
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        onClick={closeEdit}>Kapat
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary">Güncelle
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}{/* End Edit Modal */}
+
+
+            {/*VIEW MODAL*/}
+            {showView && selected && (
+                <div
+                    className="modal fade show d-block"
+                    role="dialog"
+                    style={{zIndex: 1050}}
+                    onClick={closeView}
+                    tabIndex={-1}
+                >
+                    <div className="modal-dialog modal-lg" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-content">
+
+                            {/*MODAL HEADER*/}
+                            <div className="modal-header">
+                                <h5 className="modal-title">Blog Detayı</h5>
+                                <button type="button" className="btn-close" onClick={closeView}></button>
+                            </div>
+
+                            {/*MODAL BODY*/}
+                            <div className="modal-body">
+                                <div className="mb-2">
+                                    <b>ID: </b> {selected.blogId ??selected.id}
+                                </div>
+
+                                <div className="mb-2">
+                                    <b>BLOG KATEGORI: </b> {selected.blogCategoryDto?.categoryName ?? "-"}
+                                </div>
+
+                                <div className="mb-2"><b>Görsel:</b>
+                                    <div className="mt-1">
+                                        {selected.image ? (
+                                            <img src={resolveImageUrl(selected.image)}
+                                                 alt={selected.image || "image"}
+                                                 style={{
+                                                     maxWidth:200,
+                                                     maxHeight:150,
+                                                     objectFit:'contain',
+                                                     borderRadius:8,
+                                                 }}
+                                            />
+                                        ):(
+                                            <span className="text-muted small">--</span>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="mb-2">
+                                    <b>İÇERİK: </b>
+                                    <div className="mt-1 mb-1"
+                                         style={{whiteSpace:'pre-wrap'}}>
+                                        {selected.content}
+                                    </div>
+                                </div>
+
+                                <div className="mb-2">
+                                    <b>Oluşturma: </b> {fmtDate(selected.systemCreatedDate)}
+                                </div>
+
+                            </div>
+
+                            {/*MODAL FOOTER*/}
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={closeView}>Kapat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}{/* End View Modal */}
+
+
+            {/* DELETE MODAL */}
+            {showDelete && selected && (
+                <div
+                    className="modal fade show d-block"
+                    tabIndex={-1}
+                    role="dialog"
+                    style={{ zIndex: 1050 }}
+                    onClick={closeDelete}
+                >
+                    <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title text-danger">Silme Onayı</h5>
+                                <button type="button" className="btn-close" onClick={closeDelete} />
+                            </div>
+                            <div className="modal-body">
+                                <div className="mb-2">
+                                    <b>{selected.title}</b> Blog silmek istediğinize emin misiniz?
+                                </div>
+                                <div className="text-muted">
+                                    <b>ID:</b> {selected.blogId ?? selected.id}
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-secondary" onClick={closeDelete}>
+                                    Vazgeç
+                                </button>
+                                <button className="btn btn-danger" onClick={confirmDelete}>
+                                    Sil
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
+            {/* Global Backdrop */}
+            <GlobalBackdrop show={anyOpen}/>
+        </div>
+    </>
 }
 
 export default Blog;
