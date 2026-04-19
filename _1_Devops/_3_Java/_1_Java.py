@@ -60,33 +60,69 @@ C6-)
 
 S7-) Compiler, Interpreter, JIT Nedir ve ilişkileri
 C7-)
--
--
+- Compiler : Yüksek seviyedeki bir dilin alt seviyeye dönüştürmesidir.
+- Compiler: Kaynak kod -> byte code
+
+- Java hibrit bir dildir: hem interpreter hemde compiler
+- javac ==> java dosyaları => .class byte code'lara çevirir
 -
 
 S8-) Java Uygualamasını Yaşam döngüsü ?
 C8-)
+- Kaynak kod: .java dosayasını oalrak yazılı.
+- Javac derleyicisi kodu bytecoda'a çevirir ve .class dosyasını üretir
+- JVM, Class Loader yardımıyla sınıfları belleğe yükler
+- Execution Engine bytecode'u interpreter veya JIT ile çalıştırır.
+- Runtime sırasında nesneler heap'te method frame'ler stack'te tutulur
+- Kullanılmayan nesneler Garbage collector tarafından temzilenir.
+- Process sonlandığında runtime kaynakları serbest bırakılır.
+
+S9-) Stack Memory,  Heap Memory
+C9-)
+Stack Memory:
+- Method çağrılarını örnek:  String deneme= fullName();
+- Parametreleri      örnek: String deneme= fullName(name, surname);
+- Local değişken     örnek: private int data;
+- Her thread'in kendi stack'i vardır.
+
+Heap Memory:
+- Diziler(Array)
+- Nesnelerin  örnek: Student std;
+- instance    örnek: Student std= new Student();
+
+
+
+
+
+S2-) Java Referans olayı nedir ?
+C2-)
+Java'da object değişkenleri nesnenin kendisini değil, nesneye erişim için kullanın referansı tutar
+
+Örnek:
+Employee e1= new Employee();
+Employee e2= new Employee();
+e1 ve e2 iki ayrı nesne değildir yani aynı nesneyi gösteren iki farklı referanstır
+
+
 -
 -
 -
 
-S2-)
-C2-)
--
--
--
+S2-) Primitive Type
+C2-) Primitive Type
+- En temel verilerdir
+- Object değildir
+byte   8 bit
+short 16 bit
+int   32 bit
+long  64 bit
 
-S2-)
-C2-)
--
--
--
+float   32 bit
+double  64 bit
 
-S2-)
-C2-)
--
--
--
+char    16 bit
+
+
 
 
 """
