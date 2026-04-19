@@ -12,16 +12,16 @@ public class _1_Solid {
      - test edilebilir olmasını hedefleyen beş temel prensip türüdür
 
 
-    S1-) SOLID Hakkında
-    C1-)
+    S2-) SOLID Hakkında
+    C2-)
      - Birbirinden bağımsız değildir
      - Çoğu zaman beraber kullanılır
      - Amaç sadece temiz kod yazmak değil dirençli mimari kurmaktır.
      - Spring, Java EE, Jakarta EE SOLID çok sık kullanılır.
 
 
-    S1-) SOLID Açılımı Nedir ?
-    C1-) SOLID
+    S3-) SOLID Açılımı Nedir ?
+    C3-) SOLID
      - S: Single Responsibility
      - O: Open/Closed
      - L: Liskov Substitution
@@ -29,8 +29,8 @@ public class _1_Solid {
      - D: Dependency Inversion
 
 
-    S1-) SOLID Türkçe Anlamları ?
-    C1-)
+    S4-) SOLID Türkçe Anlamları ?
+    C4-)
      - S: Single Responsibility (SRP) ==> Tek sorumluk
      - O: Open/Closed           (OCP) ==> Genişlemeye açık
      - L: Liskov Substitution   (LSP) ==> Yerine geçebilirlik
@@ -38,8 +38,8 @@ public class _1_Solid {
      - D: Dependency Inversion  (DIP) ==> Soyuta bağlılık
 
 
-    S1-) S: Single Responsibility  ?
-    C1-) SRP:
+    S5-) S: Single Responsibility  ?
+    C5-) SRP:
      - Anlamı: Bir sınıfın veya modülün yalnızca bir sorumluğu, dolayısıyla tek bir değişim nedeni olmalıdır.
      - Amacı : Bakımı kolylaştırmak, yan etkileri azlatmak ve test kapsamını küçültmek
      - Örneği: OrderService sadece sipariş kurallını yöneten: NotificationService
