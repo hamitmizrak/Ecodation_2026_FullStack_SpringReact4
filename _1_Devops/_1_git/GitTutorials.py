@@ -188,11 +188,37 @@ examples: git rm --cached .env
 - git branch -a                  ==> Local ve remote branch'leri listeler
 
 - git checkout MicroService      ==> Eski ama hala çok kullanılan branch değiştirme komutudur.
-- git checkout -b  Microservice  ==> Yeni branch oluştur ve o branche dallan
+- git checkout -b  Microservice  ==> Eski kullanımda ve Yeni branch oluştur ve o branche dallan
 
 - git switch Backend             ==> Var olan branch'e geçiş yapılır
 - git switch -c Frontend         ==> Yeni branch oluştur ve o branche dallan
 
+- git add .
+- git commit -m "backend datası"
+- git switch master
+- git merge Backend           ==> Ana branch ile "Backend" brachi bağlarız
+- git merge --no-ff Backend   ==> Branch geçmişini görünür kılmak istiyorsak
+
+- git rebase Frontend         ==> Daha temiz doğrusal bir geçmiş
+- git rebase -i HEAD~3        ==> Son 3 commit üzerinde interactive rebase yapar
+
+- git cherry-pick <commit>    ==> Belirli bir commit'i bir branch'e taşımak için kullanırız.
+
+- git remote -v                 ==> UZak depo bağlantılarını gösterir
+- git remote add origin <URL>   ==> Uzak depo ekler
+- git remote remove origin      ==> Uzak depo silmek
+- git remote set-url origin <URL>   ==> Uzak depo URL değiştirmek
+
+- git fetch                    ==> Uzak depo değişikliği indirir, ancak branch'e UYGULAMAZ
+- git pull                     ==> Uzak depo değişikliği indirir, ancak branch'e UYGULAR
+- git pull origin main
+- git pull --rebase
+
+- git push
+- git push origin main
+- git push -u origin main
+- git push --force              ==> Uzak branch'i zorla ezerek gönderirir (Tehlikelidir)
+- git push --force-with-lease   ==> Daha güvenlidir. Yani başkasınını yeni commitini ezmemeye çalışır
 
 
 

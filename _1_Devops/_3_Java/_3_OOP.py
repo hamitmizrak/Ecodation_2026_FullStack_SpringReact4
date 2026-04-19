@@ -10,7 +10,7 @@ S-2) OOP'nin 4 temel İlkesi Nedir ?
 C-2) IPE-A
 - Inheritance     : Üst sınıftan özellik ve davranışı almak
 - Polymorphism    : Aynı referansttan farklı davranış üretir
-- Encapsulation  : Vei ve davranışı bir yapıda toplar
+- Encapsulation  : Veri bütünlüğünü bozmadan, sadece izin verilen metotlarda değişiklik yapılmasını sağlar
 - Abraction      : Gereksiz detayı gizler ve gerekli davranışı sınar
 
 
@@ -30,12 +30,12 @@ C-4)
 
 S-5) Projede Composition , Inheritance mi ?
 C-5)
-Composition
+Composition :  Gevşek bağlıdır
 - Güncel tasarım yaklaşımda çoğu durumda Composition tercih edilir
 - Composition  ==> Has an
 Örnek: Car has-an Enginee
 
-Inheritance
+Inheritance : Sıkı bağlıdır
 - Kalıtım demek sıkı sıkıya bağlılık demektir.
 - Inheritance  ==> Is a
 Örnek: Dog is-a Animal
