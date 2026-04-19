@@ -31,11 +31,11 @@ public class _1_Solid {
 
     S1-) SOLID Türkçe Anlamları ?
     C1-)
-     - S: Single Responsibility  ==> Tek sorumluk
-     - O: Open/Closed            ==> Genişlemeye açık
-     - L: Liskov Substitution    ==> Yerine geçebilirlik
-     - I: Interface Segregation  ==> Küçük ama amaç odaklı arayüz
-     - D: Dependency Inversion   ==> Soyuta bağlılık
+     - S: Single Responsibility (SRP) ==> Tek sorumluk
+     - O: Open/Closed           (OCP) ==> Genişlemeye açık
+     - L: Liskov Substitution   (LSP) ==> Yerine geçebilirlik
+     - I: Interface Segregation (ISP) ==> Küçük ama amaç odaklı arayüz
+     - D: Dependency Inversion  (DIP) ==> Soyuta bağlılık
 
 
     S1-) S: Single Responsibility  ?
@@ -66,27 +66,27 @@ public class _1_Solid {
 
     S1-) I: Interface Segregation?
     C1-)
-     - Anlamı:
-     - Amacı :
-     - Örneği:
-     - İhlal belirtisi
+     - Anlamı: İstemciler kullamadıkları metodlara bağımlı bırakılmamalıdır.
+     - Amacı : Gereksiz bağımlılıkları ve boş implementasyonları azaltmak
+     - Örneği: PRinter, Scanenr, fax ayrı ayrı arayüzlerde kullanmak
+     - İhlal belirtisi: deploy(), code(), eat()
 
 
 
     S1-) D: Dependency Inversion ?
     C1-)
-     - Anlamı:
-     - Amacı :
+     - Anlamı: ÜSt seviye modüller alt seviye modüüleri değil, her ikisini de soyutlamalara bağlı olmaldır.
+     - Amacı : Bağımlılıkalr gevşektir ve test edilebilir
      - Örneği:
      - İhlal belirtisi
 
 
 
-    S1-) SOLID Nedir ?
+    S1-) SOLID ve Java Spring İlişkisi
     C1-)
-     -
-     -
-     -
+     - @Service
+     - @Repository
+     - @Component
      -
 
 
