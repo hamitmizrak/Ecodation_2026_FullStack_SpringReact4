@@ -3,6 +3,8 @@ S1-) Git Nedir ?
 c1-) Git,
 -Dağıtık bir (VCS) sürüm kontrol sistemidir.
 -Kaynak kodundaki değişiklikleri takip eder, gelişitiricilerin paralel çalışmasını mümkün kılar
+- Git'i günlük geliştirme akışının omurgasıdır.
+- Git doğru kullanmak proje kalitesini doğrudan etkiler
 
 S2-) Git Mimarisi Hakkında Bilgiler Veriniz ?
 C2-) Git Mimarisi,
@@ -36,101 +38,91 @@ C-5) Git Yaşam Döngüsü;
 - git commit ile repository geçmişini kalıcı kayıt olmasını sağla
 - git push ile paylaşılan uzak depoya gönderilir.
 
-S-6) Git komutlarını açıklayınız ?
-C-6) Aşağıda verilen komutların ne işe yaradığını yazınız ?
+
+
+S-6) Neden SVN yerine Git Kullanıyoruz ?
+C-6)  Git;
+- Yerelde hızlı çalışır
+- Branch ucuzdur.
+- Çevrim dışı commit atılabilir.
+- Dağıtık yapıya sahiptir.
+- Daha esnektir
+
+S-7) HEAD nedir ?
+C-7) Head;
+- Aktif brach veya doğrudan seçili commit'i gösteren referanstır.
+- Örneğin: git reflog
+
+
+S-8) Yanlışlıkla silinen commit'i nasıl bulursunuz ?
+C-8) Önce  `git reflog` reflog ile HEAD hareketine bakarım
+-
+
+
+S-9) Git'te iyi bir commit nasıl olmalıdır ?
+C-9) İyi bir Commit;
+- Atomik değişikliği anlatmalı
+- Kısa ve açıklayıcı olsun
+- İzlenebilir olmalı
+- Mümkünse birbiriyle ilişkisi olayan modüller gönderelim.
+
+
+S-10) pull request neden önemli ?
+C-10) pull request
+- Kod inceleme
+- Kalite kapısı
+- Bilgi paylaşımı
+- Audit izi sağlar
+
+
+S-11) Git ile CI/CD ilişkisi nedir ?
+C-11) Branch, tag ve merge olayları pipeline'lar ile tetiklenir.
+
+
+S-12) Branch ile Tag arasındaki farklar ?
+C-12)
+- Branch: Hareketlidir Yeni commit geldikçe ilerler
+- Tag   : Çoğunlukla sabittir ve release(sürüm) noktasını işaret eder.
+
+
+S-13) Detached HEAD nednen tehlikelidir ?
+C-13) Branch üstünde değil doğrudan commit üstünden çalışdığı için yeni commitlerin sonradan kaybolması gibi görüğlebilir.
+- Yani Branch oluşturmadan bıraklırsa takip zorlaşır.
+
+S-14) Cherry-pick ile merge arasındaki fark nedir ?
+C-14) Cherry-pick - Merge;
+- Cherry-pick: Seçilen comiti tekil taşır.
+- Merge      : Dal geçmişini bütünsel olarak entegre eder.
+
+
+S-15) Conflict sonrasında yapılaması gerekenler nelerdir ?
+C-15)
 -
 -
 -
 -
 -
 
-S-)
-C-)
+S-16)
+C-16)
 -
 -
 -
 -
 -
 
-S-)
-C-)
+
+S-17) Git komutlarını açıklayınız ?
+C-17) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 -
 -
 -
 -
 -
 
-S-)
-C-)
--
--
--
--
--
 
-S-)
-C-)
--
--
--
--
--
 
-S-)
-C-)
--
--
--
--
--
 
-S-)
-C-)
--
--
--
--
--
-
-S-)
-C-)
--
--
--
--
--
-
-S-)
-C-)
--
--
--
--
--
-
-S-)
-C-)
--
--
--
--
--
-
-S-)
-C-)
--
--
--
--
--
-
-S-)
-C-)
--
--
--
--
--
 
 S-)
 C-)
