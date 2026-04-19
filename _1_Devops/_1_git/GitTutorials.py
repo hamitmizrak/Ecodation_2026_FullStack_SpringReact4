@@ -128,8 +128,6 @@ C-17)
 
 S-18) Büyük binary dosyalar için standart Git yeterli midir  ?
 C-18)
-
-=======
 -
 -
 -
@@ -137,8 +135,16 @@ C-18)
 -
 
 
-S-19) Git komutlarını açıklayınız ?
-C-19) Aşağıda verilen komutların ne işe yaradığını yazınız ?
+S-19) Conflict sonrası işlemler
+C-19)
+- git pull origin main
+- git add .
+- git commit -m "Conflict çözüldü"
+
+
+
+S-20) Git komutlarını açıklayınız ?
+C-20) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git config --global user.name "Hamit Mızrak"
 - git config --global user.name
 - git config --global user.email "hamitmizrak@gmail.com"
@@ -167,14 +173,23 @@ C-19) Aşağıda verilen komutların ne işe yaradığını yazınız ?
 - git diff          ==> Stage edilmemiş(-) değişiklileri gösterir.
 - git diff --staged ==> Stage edilmiş(+) henüz commit edilmemiş()
 
+- git grep "arama"              ==> Proje içinde metin veya ifade arar
 - git rm <DOSYA_ADI>            ==> Hem git hemde klasörden kaldırılır
 - git rm --cached  <DOSYA_ADI>  ==> Dosyayı silmeden sadece Git takibini çıkarır.
 examples: git rm --cached .env
 
 - git mv <ESKI_DOSYA_ADI>  <YENI_DOSYA_ADI>  ==> Hem dosya adını hemde yerini değiştirmek istersek
 
-- git blame _1_Devops//_1_git/GitTutorials.py ==> Dosyanın satıurlarını en son hangi commit ve kişi bilgisini gösterir
 
+- git bisect start       ==> Hatanı hangi commit'e geldiğini bulmak için binary search sürecini başlatır
+- git bisect good        ==> Sorunsuz commit'i işaretler
+- git bisect bad         ==> Hatalı  commit'i işaretler
+- git bisect reset       ==> Bisect işlemini bitirir ve nomral duruma döner
+
+- git shortlog           ==> Commit katkı özetini gösterir
+- git shortlog -sn       ==> Kimin kaç commit attığını sayısal oalrak gösterir
+
+- git blame _1_Devops//_1_git/GitTutorials.py ==> Dosyanın satıurlarını en son hangi commit ve kişi bilgisini gösterir
 - git reflog  ==> HEAD hareketlerini geçmişini gösterir Yanlış reset veya silinen branch kurtamadan çok önemlidir.
 
 - git branch                     ==> Branch listele
@@ -220,7 +235,20 @@ examples: git rm --cached .env
 - git push --force              ==> Uzak branch'i zorla ezerek gönderirir (Tehlikelidir)
 - git push --force-with-lease   ==> Daha güvenlidir. Yani başkasınını yeni commitini ezmemeye çalışır
 
+- git stash       ==> O anda ki değişiklikleri geçici olarak saklamaya yarar
+- git stash save "yarım kalan login işlemi"
+- git stash list   ==> Kaydedilmiş stash listesini gösterir.
+- git stash apply  ==> Son stash'ı geri getirir ama stash kaydını SİLMEZZZZZ
+- git stash pop    ==> Son stash'ı geri getirir ama stash kaydını SİLER
+- git stash list
+- git stash drop stash@{0}
+- git stash clear  ==> Tüm stash kayıtlarını siler
 
 
+- git tag         ==> Etiketleri listeler
+- git tag v1.0.0  ==> v1.0.0 adında tag oluştur
+- git tag -a v1.0.0 -m "ilk versiyon"
+- git push origin v1.0.0 ==> Belirli tag'ı uzak repository göndermek
+- git push origin --tags ==> Tüm  tag'leri  uzak repository göndermek
 
 """
