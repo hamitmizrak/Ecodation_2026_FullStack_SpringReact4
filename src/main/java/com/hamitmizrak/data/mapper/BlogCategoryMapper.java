@@ -4,6 +4,8 @@ import com.hamitmizrak.business.dto.BlogCategoryDto;
 import com.hamitmizrak.data.entity.BlogCategoryEntity;
 import lombok.experimental.UtilityClass;
 
+// LOMBOK
+// Bu sınıf sadece yardımcı statik metotlar içersin, nesne üretilemesin.
 @UtilityClass
 public class BlogCategoryMapper {
 

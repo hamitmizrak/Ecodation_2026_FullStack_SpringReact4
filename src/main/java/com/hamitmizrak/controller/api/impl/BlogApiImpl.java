@@ -3,10 +3,9 @@ package com.hamitmizrak.controller.api.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hamitmizrak.business.dto.BlogDto;
-import com.hamitmizrak.business.services.interfaces.IBlogServices;
+import com.hamitmizrak.business.services.impl.BlogServicesImpl;
 import com.hamitmizrak.controller.api.interfaces.IBlogApi;
 import com.hamitmizrak.error.ApiResult;
-import com.hamitmizrak.file_upload.ImageService;
 import com.hamitmizrak.utily.FrontEnd;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +24,11 @@ import java.util.List;
 @CrossOrigin(origins = FrontEnd.REACT_URL)
 public class BlogApiImpl implements IBlogApi<BlogDto> {
 
-    private final IBlogServices<BlogDto, ?> blogService;
-    private final ImageService imageService;
+    /**
+     * İstek alma katmanı controller'dır.
+     * Business logic, dosya kaydetme/silme ve update akışı service katmanındadır.
+     */
+    private final BlogServicesImpl blogService;
     private final ObjectMapper objectMapper;
 
     // -------------------- CREATE --------------------
@@ -43,12 +45,8 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     }
 
     /**
-     * Multipart (resimli) — About’taki desenin aynısı:
-     * POST /blog/api/v1.0.0/create
-     * Content-Type: multipart/form-data
-     * form-data:
-     *   - blog:   Text (JSON)  -> ör: {"header":"H1","title":"T1","content":"...","blogCategoryDto":{"categoryId":1}}
-     *   - file:   File (opsiyonel)
+     * Multipart (resimli)
+     * Controller sadece veriyi alır/parçalar, iş mantığını service'e devreder.
      */
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResult<?>> objectApiCreateMultipart(
@@ -57,11 +55,7 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     ) throws JsonProcessingException {
         try {
             BlogDto dto = objectMapper.readValue(json, BlogDto.class);
-            if (file != null && !file.isEmpty()) {
-                String relative = imageService.saveBlogImage(file); // /upload/blog/...
-                dto.setImage(relative);
-            }
-            return ResponseEntity.ok(ApiResult.success(blogService.objectServiceCreate(dto)));
+            return ResponseEntity.ok(ApiResult.success(blogService.objectServiceCreateWithFile(dto, file)));
         } catch (Exception ex) {
             return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/create[multipart]"));
         }
@@ -87,7 +81,7 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
             BlogDto data = blogService.objectServiceFindById(id);
             return ResponseEntity.ok(ApiResult.success(data));
         } catch (Exception ex) {
-            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/find/"+id));
+            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/find/" + id));
         }
     }
 
@@ -101,45 +95,26 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
         try {
             return ResponseEntity.ok(ApiResult.success(blogService.objectServiceUpdate(id, dto)));
         } catch (Exception ex) {
-            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/update/"+id));
+            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/update/" + id));
         }
     }
 
     /**
      * Multipart (resimli)
-     * PUT /blog/api/v1.0.0/update/{id}
-     * form-data:
-     *  - blog: Text (JSON) -> BlogDto formatında
-     *  - file: File (opsiyonel)
-     * Mantık: yeni dosya gelirse önce kaydet, DTO.image güncellenir; update sonrası eski görsel güvenle silinir.
+     * Controller dosyayı ve json'u alır, update business akışı service katmanında yürür.
      */
     @PutMapping(value = "/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResult<?>> objectApiUpdateMultipart(
             @PathVariable Long id,
-            @Valid @RequestPart("blog") BlogDto dto,
+            @RequestPart("blog") String json,
             @RequestPart(name = "file", required = false) MultipartFile file
-    ) {
+    ) throws JsonProcessingException {
         try {
-            // Mevcut kaydı çek (eski image’i öğrenmek için)
-            BlogDto current = blogService.objectServiceFindById(id);
-            String oldUrl = current != null ? current.getImage() : null;
-
-            if (file != null && !file.isEmpty()) {
-                String relative = imageService.saveBlogImage(file);
-                dto.setImage(relative);
-            }
-
-            BlogDto updated = blogService.objectServiceUpdate(id, dto);
-
-            // Eğer yeni resim yüklendiyse ve eski /upload/... ise ve farklıysa eskiyi sil
-            if (file != null && !file.isEmpty() && oldUrl != null
-                    && oldUrl.startsWith("/upload/") && !oldUrl.equals(updated.getImage())) {
-                try { imageService.deleteByUrl(oldUrl); } catch (Exception ignored) { /* loglanabilir */ }
-            }
-
+            BlogDto dto = objectMapper.readValue(json, BlogDto.class);
+            BlogDto updated = blogService.objectServiceUpdateWithFile(id, dto, file);
             return ResponseEntity.ok(ApiResult.success(updated));
         } catch (Exception ex) {
-            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/update[multipart]/"+id));
+            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/update[multipart]/" + id));
         }
     }
 
@@ -152,7 +127,7 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
             BlogDto deleted = blogService.objectServiceDelete(id);
             return ResponseEntity.ok(ApiResult.success(deleted));
         } catch (Exception ex) {
-            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/delete/"+id));
+            return ResponseEntity.ok(ApiResult.error("serverError", ex.getMessage(), "/blog/api/v1.0.0/delete/" + id));
         }
     }
 
@@ -169,6 +144,4 @@ public class BlogApiImpl implements IBlogApi<BlogDto> {
     public ResponseEntity<String> blogApiAllDelete() {
         return ResponseEntity.ok(blogService.blogAllDelete());
     }
-
-
 }

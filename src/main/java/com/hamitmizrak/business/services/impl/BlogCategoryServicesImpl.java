@@ -48,11 +48,13 @@ public class BlogCategoryServicesImpl
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BlogCategoryDto> objectServiceList() {
         return iBlogCategoryRepository.findAll().stream().map(this::entityToDto).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BlogCategoryDto objectServiceFindById(Long id) {
         BlogCategoryEntity e = iBlogCategoryRepository.findById(id)
                 .orElseThrow(() -> new _404_NotFoundException(id + " id'li kategori bulunamadı"));
